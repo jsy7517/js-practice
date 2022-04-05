@@ -11,6 +11,9 @@ const InputPurchasePriceView = class extends View {
             type="number"
             class="w-100 mr-2 pl-2"
             placeholder="구입 금액"
+						required
+						min="1000"
+						max="100000"
           />
           <button type="submit" class="btn btn-cyan">확인</button>
         </div>
