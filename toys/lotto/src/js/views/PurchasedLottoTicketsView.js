@@ -19,7 +19,7 @@ const PurchasedLottoTicketsView = class extends View {
 
 	constructor($target) {
 		super($target);
-		this.bindEventHandler('change', (e) => this.onToggleLottoNumbersBtn(e)); // add toggle event listener
+		this.bindEventHandler('change', (e) => this.onToggleLottoNumbersBtn(e));
 	}
 
 	onToggleLottoNumbersBtn(e) {

@@ -16,8 +16,7 @@ export const validateWinningNumbers = (winningNumbers) => {
 		throw new Error(ERROR_MESSAGES.INPUT_WINNING_NUMBERS.INVALID_WINNING_NUMBERS);
 	}
 
-	// +1 for bonus number
-	if (new Set(winningNumbers).size !== LOTTO_GAME.LOTTO_COUNT_PER_TICKET + 1) {
+	if (new Set(winningNumbers).size !== LOTTO_GAME.WINNING_NUMBERS_COUNT) {
 		throw new Error(ERROR_MESSAGES.INPUT_WINNING_NUMBERS.DUPLICATED_WINNING_NUMBERS);
 	}
 };

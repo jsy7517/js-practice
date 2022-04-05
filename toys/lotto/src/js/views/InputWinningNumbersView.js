@@ -65,7 +65,7 @@ const InputWinningNumbersView = class extends View {
 
 	constructor($target) {
 		super($target);
-		this.winningNumbers = Array.from({ length: LOTTO_GAME.LOTTO_COUNT_PER_TICKET + 1 }, () => 0); // +1 for bonus number
+		this.winningNumbers = Array.from({ length: LOTTO_GAME.WINNING_NUMBERS_COUNT }, () => 0);
 		this.bindEventHandler('submit', (e) => this.onSubmitWinningNumbers(e));
 		this.bindEventHandler('input', (e) => this.onInputWinningNumbers(e));
 	}
