@@ -7,5 +7,6 @@
   "printWidth": 80,
   "orderedImports": true,
   "bracketSpacing": true,
-  "bracketSameLine": true
+  "bracketSameLine": true,
+  "endOfLine": "auto"
 }
