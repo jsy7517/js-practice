@@ -5,7 +5,7 @@ const PurchasedLotto = class {
   #purchasedLottoTickets;
 
   constructor() {
-    this.#purchasedLottoTickets = [];
+    this.reset();
   }
 
   purchaseNewLotto(purchasePrice) {
@@ -24,6 +24,10 @@ const PurchasedLotto = class {
         newLottoTicket,
       ];
     }
+  }
+
+  reset() {
+    this.#purchasedLottoTickets = [];
   }
 
   get purchasedLottoTickets() {

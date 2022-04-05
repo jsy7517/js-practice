@@ -9,7 +9,7 @@ const View = class {
     this.$target.addEventListener(eventType, handler);
   }
 
-  dispatch(eventType, data) {
+  dispatch(eventType, data = {}) {
     const newEvent = new CustomEvent(eventType, { detail: data });
     this.$target.dispatchEvent(newEvent);
   }

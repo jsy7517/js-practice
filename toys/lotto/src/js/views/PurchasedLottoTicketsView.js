@@ -49,6 +49,10 @@ const PurchasedLottoTicketsView = class extends View {
     );
   }
 
+  reset() {
+    this.$target.replaceChildren();
+  }
+
   createLottoTicketListTemplate(lottoTickets) {
     return `
       ${lottoTickets

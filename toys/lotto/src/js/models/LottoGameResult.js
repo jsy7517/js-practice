@@ -1,5 +1,4 @@
-/* eslint-disable operator-linebreak */
-import { LOTTO_GAME } from '../lib/constants/lottoGame';
+import { LOTTO_GAME } from '../lib/constants/lottoGame.js';
 
 const LottoGameResult = class {
   #winningNumbers;
@@ -9,9 +8,7 @@ const LottoGameResult = class {
   #profit;
 
   constructor() {
-    this.#winningNumbers = [];
-    this.#totalLottoRanks = [];
-    this.#profit = 0;
+    this.reset();
   }
 
   setGameResult(lottoTickets) {
@@ -37,12 +34,13 @@ const LottoGameResult = class {
   }
 
   calcMatchCountPerTicket(lottoTicket, winningNumbers) {
-    return lottoTicket.reduce((matchCount, lottoNumber) => {
+    let matchCount = 0;
+    lottoTicket.forEach((lottoNumber) => {
       if (winningNumbers.includes(lottoNumber)) {
         matchCount++;
       }
-      return matchCount;
-    }, 0);
+    });
+    return matchCount;
   }
 
   calcTotalMatchBonus(lottoTickets, bonusNumber) {
@@ -73,13 +71,14 @@ const LottoGameResult = class {
 
   calcProfit(lottoTicketCount, totalLottoRanks) {
     const totalPurchasePrice = LOTTO_GAME.UNIT_PRICE * lottoTicketCount;
-    const totalReward = totalLottoRanks.reduce((reward, rank) => {
-      if (rank !== LOTTO_GAME.OUT_OF_RANK) {
-        const lottoPrize = this.getLottoPrizeByRank(rank);
-        reward += lottoPrize.REWARD;
+    let totalReward = 0;
+    totalLottoRanks.forEach((lottoRank) => {
+      if (lottoRank !== LOTTO_GAME.OUT_OF_RANK) {
+        const lottoPrize = this.getLottoPrizeByRank(lottoRank);
+        totalReward += lottoPrize.REWARD;
       }
-      return reward;
-    }, 0);
+    });
+    return (totalReward / totalPurchasePrice) * 100;
   }
 
   getLottoPrizeByRank(rank) {
@@ -88,12 +87,22 @@ const LottoGameResult = class {
     );
   }
 
+  reset() {
+    this.#winningNumbers = [];
+    this.#totalLottoRanks = [];
+    this.#profit = 0;
+  }
+
   get winningNumbers() {
     return this.#winningNumbers;
   }
 
   set winningNumbers(winningNumbers) {
     this.#winningNumbers = winningNumbers;
+  }
+
+  get totalLottoRanks() {
+    return this.#totalLottoRanks;
   }
 
   get profit() {

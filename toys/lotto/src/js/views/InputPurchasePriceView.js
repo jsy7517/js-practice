@@ -1,4 +1,5 @@
 import View from '../lib/core/View.js';
+import { $ } from '../lib/utils/dom.js';
 import { validatePurchasePrice } from '../lib/utils/validation.js';
 
 const InputPurchasePriceView = class extends View {
@@ -15,7 +16,7 @@ const InputPurchasePriceView = class extends View {
 						min="1000"
 						max="100000"
           />
-          <button type="submit" class="btn btn-cyan">확인</button>
+          <button type="submit" id="submit-price-btn" class="btn btn-cyan">확인</button>
         </div>
       </form>
   `;
@@ -30,6 +31,11 @@ const InputPurchasePriceView = class extends View {
       'afterbegin',
       InputPurchasePriceView.#template,
     );
+  }
+
+  reset() {
+    $('#input-purchase-price-form').reset();
+    $('#submit-price-btn').disabled = false;
   }
 
   onSubmitPurchasePrice(e) {
@@ -51,6 +57,7 @@ const InputPurchasePriceView = class extends View {
     }
 
     this.dispatch('submitPurchasePrice', purchasePrice);
+    $('#submit-price-btn').disabled = true;
   }
 };
 

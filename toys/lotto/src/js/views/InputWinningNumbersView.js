@@ -67,21 +67,21 @@ const InputWinningNumbersView = class extends View {
       <h4 class="mt-0 mb-3 text-center">보너스 번호</h4>
       <div class="d-flex justify-center">
         <input type="number"
-        data-lotto-idx="6"
-        required
-        min="1"
-				max="45" 
-        class="bonus-number winning-number text-center" />
+          data-lotto-idx="6"
+          required
+          min="1"
+				  max="45" 
+          class="bonus-number winning-number text-center" />
+        </div>
       </div>
     </div>
-  </div>
-  <button
-    type="submit"
-    class="open-result-modal-button mt-5 btn btn-cyan w-100"
-  >
-    결과 확인하기
-  </button>
-</form>
+    <button
+      type="submit"
+      class="open-result-modal-button mt-5 btn btn-cyan w-100"
+    >
+      결과 확인하기
+    </button>
+  </form>
   `;
 
   constructor($target) {
@@ -99,6 +99,10 @@ const InputWinningNumbersView = class extends View {
       'afterbegin',
       InputWinningNumbersView.#template,
     );
+  }
+
+  reset() {
+    this.$target.replaceChildren();
   }
 
   onSubmitWinningNumbers(e) {
