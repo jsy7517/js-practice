@@ -3,9 +3,9 @@ import View from '../lib/core/View.js';
 import { validateWinningNumbers } from '../lib/utils/validation.js';
 
 const InputWinningNumbersView = class extends View {
-	winningNumbers;
+  winningNumbers;
 
-	static #template = `
+  static #template = `
   <form class="mt-9" id="input-winning-numbers-form">
   <label class="flex-auto d-inline-block mb-3"
     >지난 주 당첨번호 6개와 보너스 넘버 1개를 입력해주세요.</label>
@@ -84,40 +84,46 @@ const InputWinningNumbersView = class extends View {
 </form>
   `;
 
-	constructor($target) {
-		super($target);
-		this.winningNumbers = Array.from({ length: LOTTO_GAME.WINNING_NUMBERS_COUNT }, () => 0);
-		this.bindEventHandler('submit', (e) => this.onSubmitWinningNumbers(e));
-		this.bindEventHandler('input', (e) => this.onInputWinningNumbers(e));
-	}
+  constructor($target) {
+    super($target);
+    this.winningNumbers = Array.from(
+      { length: LOTTO_GAME.WINNING_NUMBERS_COUNT },
+      () => 0,
+    );
+    this.bindEventHandler('submit', (e) => this.onSubmitWinningNumbers(e));
+    this.bindEventHandler('input', (e) => this.onInputWinningNumbers(e));
+  }
 
-	render() {
-		this.$target.insertAdjacentHTML('afterbegin', InputWinningNumbersView.#template);
-	}
+  render() {
+    this.$target.insertAdjacentHTML(
+      'afterbegin',
+      InputWinningNumbersView.#template,
+    );
+  }
 
-	onSubmitWinningNumbers(e) {
-		e.preventDefault();
-		const {
-			target: { id }
-		} = e;
-		if (id !== 'input-winning-numbers-form') return;
+  onSubmitWinningNumbers(e) {
+    e.preventDefault();
+    const {
+      target: { id },
+    } = e;
+    if (id !== 'input-winning-numbers-form') return;
 
-		try {
-			validateWinningNumbers(this.winningNumbers);
-		} catch (error) {
-			alert(error.message);
-			return;
-		}
+    try {
+      validateWinningNumbers(this.winningNumbers);
+    } catch (error) {
+      alert(error.message);
+      return;
+    }
 
-		this.dispatch('submitWinningNumbers', this.winningNumbers);
-	}
+    this.dispatch('submitWinningNumbers', this.winningNumbers);
+  }
 
-	onInputWinningNumbers({ target }) {
-		if (!target.classList.contains('winning-number')) return;
-		const { lottoIdx } = target.dataset;
-		const inputLottoNumber = target.valueAsNumber;
-		this.winningNumbers[lottoIdx] = inputLottoNumber;
-	}
+  onInputWinningNumbers({ target }) {
+    if (!target.classList.contains('winning-number')) return;
+    const { lottoIdx } = target.dataset;
+    const inputLottoNumber = target.valueAsNumber;
+    this.winningNumbers[lottoIdx] = inputLottoNumber;
+  }
 };
 
 export default InputWinningNumbersView;
