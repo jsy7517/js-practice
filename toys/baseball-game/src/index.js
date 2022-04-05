@@ -59,11 +59,9 @@ const BaseballGame = class {
 		this.baseballGameModel = new BaseballGameModel();
 
 		this.#computerInputNumbers = this.baseballGameModel.generateRandomNumber();
-		// console.log(this.#computerInputNumbers);
 	}
 
 	#handleSubmit = (e) => {
-		// this에 접근하기 위해 화살표 함수 활용
 		e.preventDefault();
 
 		const userInputNumbers = this.$userInput.value;
