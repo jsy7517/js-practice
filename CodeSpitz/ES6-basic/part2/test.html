@@ -1,0 +1,75 @@
+<html>
+	<body>
+		<script>
+			// Label만 있으면 오류가 난다. Label 이외의 Statement가 필요하다.
+			// 내부적으로 Label은 Statement가 아님을 의미한다.
+			// _sampleLabel:{
+			//      _sampleLabel:
+			//         ;
+			//    }
+			// _sampleLabel: {
+			// 	console.log('start');
+			// 	if (true) {
+			// 		break _sampleLabel;
+			// 	}
+
+			// 	console.log('end');
+			// temp38: for (let i = 0; i < 10; i++) {
+			// 	if (i === 5) break temp38;
+			// }
+			// c: console.log('end'); // comment
+			// b: console.log('000000000000'); // comment
+			// a: console.log('000000000000000000000000000000000000'); // comment
+
+			// function f() {
+			// 	console.log('1');
+			// 	console.log('2');
+			// 	console.log('3');
+			// }
+			// f();
+
+			// switch (true) {
+			// 	case true:
+			// 		console.log('a');
+			// 	case false:
+			// 		console.log('b');
+			// 	default:
+			// 		console.log('c');
+			// }
+			// var a = true;
+			// switch (a) {
+			// 	case true:
+			// 		console.log('a');
+			// 	case false:
+			// 		console.log('b');
+			// }
+			// console.log('end');
+			// switch (true) {
+			//   case f3():
+			//   case f4():
+			// }
+
+			var c = 0;
+			switch (true) {
+				case c++ > 5:
+					console.log(c);
+					break;
+				case c++ > 5:
+					console.log(c);
+					break;
+				case c++ > 5:
+					console.log(c);
+					break;
+				case c++ > 5:
+					console.log(c);
+					break;
+				case c++ > 5:
+					console.log(c);
+					break;
+				case c++ > 5:
+					console.log(c);
+					break;
+			}
+		</script>
+	</body>
+</html>
