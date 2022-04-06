@@ -12,7 +12,6 @@ const request = async (url, option = {}) => {
 
 export const searchVideo = async (keyword) => {
   // NOTE: dotenv 사용을 위해 Webpack 설정 필요.
-  const searchUrl = `https://www.googleapis.com/youtube/v3/search?type=video&key=AIzaSyDEkg4GAROSvyN6_IgDfaUBIVwQYTaubEU&q=${keyword}&part=snippet&maxResults=${MAX_RESULT_VIDEO_COUNT}`;
-  // const searchUrl = `https://www.googleapis.com/youtube/v3/search?type=video&key=${process.env.YOUTUBE_API_KEY}&q=${keyword}&part=snippet&maxResults=${MAX_RESULT_VIDEO_COUNT}`;
+  const searchUrl = `https://www.googleapis.com/youtube/v3/search?type=video&key=${process.env.YOUTUBE_API_KEY}&q=${keyword}&part=snippet&maxResults=${MAX_RESULT_VIDEO_COUNT}`;
   return request(searchUrl);
 };
