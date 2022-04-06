@@ -9,6 +9,7 @@ const InputPurchasePriceView = class extends View {
         <label class="mb-2 d-inline-block">구입할 금액을 입력해주세요.</label>
         <div class="d-flex">
           <input
+            id="input-purchase-price"
             type="number"
             class="w-100 mr-2 pl-2"
             placeholder="구입 금액"
