@@ -1,6 +1,7 @@
 import GlobalNavbar from './components/GlobalNavBar.js';
 import VideoSearchModal from './components/VideoSearchModal.js';
 import Component from './lib/core/Component.js';
+import { searchVideo } from './lib/utils/api.js';
 import { $ } from './lib/utils/dom.js';
 
 const App = class extends Component {
@@ -30,9 +31,10 @@ const App = class extends Component {
     this.$videoSearchModal.openModal();
   }
 
-  handleSearchVideo(keyword) {
+  async handleSearchVideo(keyword) {
     // TODO: Youtube API 요청
-    console.log(keyword);
+    const resultVideos = await searchVideo(keyword);
+    console.log(resultVideos);
   }
 };
 
