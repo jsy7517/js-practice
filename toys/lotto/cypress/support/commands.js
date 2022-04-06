@@ -7,7 +7,7 @@ Cypress.Commands.add('submitPurchasePrice', (purchasePrice) => {
     .submit();
 });
 
-Cypress.Commands.add('inputWinningNumbers', (n1, n2, n3, n4, n5, n6, bonus) => {
+Cypress.Commands.add('inputWinningNumbers', (n1, n2, n3, n4, n5, n6) => {
   cy.get('[data-lotto-idx]')
     .clear()
     .first()
