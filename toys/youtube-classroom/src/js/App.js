@@ -32,9 +32,9 @@ const App = class extends Component {
   }
 
   async handleSearchVideo(keyword) {
-    // TODO: Youtube API 요청
     const resultVideos = await searchVideo(keyword);
     console.log(resultVideos);
+    // this.$videoSearchModal.renderVideos();
   }
 };
 

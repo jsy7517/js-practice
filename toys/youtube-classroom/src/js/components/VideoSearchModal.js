@@ -60,6 +60,7 @@ const VideoSearchModal = class extends Component {
       target: [searchInput],
     } = e;
     if (searchInput.value !== '') {
+      // TODO: Skeleton UI 보여주기
       this.dispatchCustomEvent($('#app'), 'searchVideo', searchInput.value);
     }
   }
