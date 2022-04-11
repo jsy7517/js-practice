@@ -20,6 +20,8 @@
     "no-console": "off",
     "class-methods-use-this": "off",
     "function-paren-newline": "off",
-    "indent": "off"
+    "indent": "off",
+    "operator-linebreak": "off",
+    "object-curly-newline": "off"
   }
 }
