@@ -32,9 +32,8 @@ const App = class extends Component {
   }
 
   async handleSearchVideo(keyword) {
-    const resultVideos = await searchVideo(keyword);
-    console.log(resultVideos);
-    // this.$videoSearchModal.renderVideos();
+    const { items } = await searchVideo(keyword);
+    this.$videoSearchModal.renderVideos(items);
   }
 };
 

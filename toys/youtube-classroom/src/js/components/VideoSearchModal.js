@@ -1,10 +1,11 @@
 import Component from '../lib/core/Component.js';
 import { $ } from '../lib/utils/dom.js';
+import { getVideoDetail } from '../lib/utils/video.js';
 
 const VideoSearchModal = class extends Component {
   mountTemplate() {
     const template = `
-    <div class="modal-container hide">
+    <dialog class="modal-container hide">
       <div class="dimmer"></div>
       <div
         class="search-modal"
@@ -20,7 +21,7 @@ const VideoSearchModal = class extends Component {
           </div>
           <section class="search-input">
             <h3 hidden>검색어 입력</h3>
-            <form id="video-search-form">
+            <form id="video-search-form" class="search-input__form">
               <input
                 id="search-input-keyword"
                 type="text"
@@ -31,8 +32,10 @@ const VideoSearchModal = class extends Component {
               </button>
             </form>
           </section>
+          <section class="video-list-section">
+          </section>
       </div>
-    </div>
+    </dialog>
     `;
 
     this.$target.insertAdjacentHTML('beforeend', template);
@@ -71,6 +74,41 @@ const VideoSearchModal = class extends Component {
 
   closeModal() {
     this.$modalContainer.classList.add('hide');
+  }
+
+  renderVideos(videos) {
+    const template = `
+      <ul class="video-list">
+      ${videos
+        .map(
+          (video) => `
+        ${this.createVideoItemTemplate(video)}
+      `,
+        )
+        .join('')}
+        </ul>`;
+    $('.video-list-section').insertAdjacentHTML('afterbegin', template);
+  }
+
+  createVideoItemTemplate(video) {
+    const { videoId, thumbnailSrc, title, channelTitle, publishTime } =
+      getVideoDetail(video);
+    return `
+      <li class="video-item" data-video-id=${videoId}>
+      <div id="image-wrapper">
+        <img
+          src=${thumbnailSrc}
+          alt="video-item-thumbnail" class="video-item__thumbnail">
+        </img>
+      </div>
+      <h4 class="video-item__title">${title}</h4>
+      <p class="video-item__channel-name">${channelTitle}</p>
+      <p class="video-item__published-date">${publishTime}</p>
+      <div class="button-list">
+        <button class="video-item__watch_button button">✅</button>
+        <button class="video-item__delete_button button">🗑</button>
+      </div>
+    </li>`;
   }
 };
 

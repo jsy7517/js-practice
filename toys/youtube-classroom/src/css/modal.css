@@ -106,9 +106,8 @@ svg {
 .video-list {
   width: 1040px;
   height: 493px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 32px 20px;
   overflow-y: scroll;
 }
@@ -161,4 +160,22 @@ svg {
 
 .video-item__save-button:hover {
   background: #efefef;
+}
+
+@media only screen and (max-width: 768px) {
+  .video-list {
+    width: 700px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .video-list .video-item {
+    height: 195px;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .video-list {
+    width: 360px;
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
