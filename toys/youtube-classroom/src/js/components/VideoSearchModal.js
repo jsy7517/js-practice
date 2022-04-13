@@ -82,6 +82,10 @@ const VideoSearchModal = class extends Component {
     $('.video-list').replaceChildren();
   }
 
+  showSkeletonVideos() {}
+
+  hideSkeletonVideos() {}
+
   renderVideos(videos) {
     const lastVideoIdx = videos.length - 1;
     const template = `
@@ -109,7 +113,7 @@ const VideoSearchModal = class extends Component {
         idx === lastVideoIdx && 'video-item--last'
       }" data-video-id=${videoId}
     }>
-      <div id="image-wrapper">
+      <div class="video-item__thumbnail-container">
         <img
           src=${thumbnailSrc}
           alt="video-item-thumbnail" class="video-item__thumbnail">
