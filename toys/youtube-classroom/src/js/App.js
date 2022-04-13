@@ -1,7 +1,7 @@
 import GlobalNavbar from './components/GlobalNavBar.js';
 import VideoSearchModal from './components/VideoSearchModal.js';
 import Component from './lib/core/Component.js';
-import { searchVideo } from './lib/utils/api.js';
+import { searchMoreVideo, searchVideo } from './lib/utils/api.js';
 import { $ } from './lib/utils/dom.js';
 
 const App = class extends Component {
@@ -25,6 +25,9 @@ const App = class extends Component {
     this.bindCustomEvent(this.$target, 'searchVideo', (e) =>
       this.handleSearchVideo(e.detail),
     );
+    this.bindCustomEvent(this.$target, 'searchMoreVideo', () =>
+      this.handleSearchMoreVideo(),
+    );
   }
 
   handleOpenModal() {
@@ -32,7 +35,22 @@ const App = class extends Component {
   }
 
   async handleSearchVideo(keyword) {
-    const { items } = await searchVideo(keyword);
+    if (keyword !== this.latestSearchKeyword) {
+      this.$videoSearchModal.clearVideoList();
+    }
+
+    const { items, nextPageToken } = await searchVideo(keyword);
+    this.latestSearchKeyword = keyword;
+    this.pageToken = nextPageToken;
+    this.$videoSearchModal.renderVideos(items);
+  }
+
+  async handleSearchMoreVideo() {
+    const { items, nextPageToken } = await searchMoreVideo(
+      this.latestSearchKeyword,
+      this.pageToken,
+    );
+    this.pageToken = nextPageToken;
     this.$videoSearchModal.renderVideos(items);
   }
 };

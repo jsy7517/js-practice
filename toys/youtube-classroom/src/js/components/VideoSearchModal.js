@@ -1,4 +1,5 @@
 import Component from '../lib/core/Component.js';
+import { searchMoreVideo } from '../lib/utils/api.js';
 import { $ } from '../lib/utils/dom.js';
 import { getVideoDetail } from '../lib/utils/video.js';
 
@@ -33,6 +34,7 @@ const VideoSearchModal = class extends Component {
             </form>
           </section>
           <section class="video-list-section">
+            <ul class="video-list"></ul>
           </section>
       </div>
     </dialog>
@@ -76,25 +78,37 @@ const VideoSearchModal = class extends Component {
     this.$modalContainer.classList.add('hide');
   }
 
+  clearVideoList() {
+    $('.video-list').replaceChildren();
+  }
+
   renderVideos(videos) {
+    const lastVideoIdx = videos.length - 1;
     const template = `
-      <ul class="video-list">
       ${videos
         .map(
-          (video) => `
-        ${this.createVideoItemTemplate(video)}
+          (video, idx) => `
+        ${this.createVideoItemTemplate({
+          video,
+          idx,
+          lastVideoIdx,
+        })}
       `,
         )
         .join('')}
-        </ul>`;
-    $('.video-list-section').insertAdjacentHTML('afterbegin', template);
+        `;
+    $('.video-list').insertAdjacentHTML('beforeend', template);
+    this.bindObserver($('.video-item--last'));
   }
 
-  createVideoItemTemplate(video) {
+  createVideoItemTemplate({ video, idx, lastVideoIdx }) {
     const { videoId, thumbnailSrc, title, channelTitle, publishTime } =
       getVideoDetail(video);
     return `
-      <li class="video-item" data-video-id=${videoId}>
+      <li class="video-item ${
+        idx === lastVideoIdx && 'video-item--last'
+      }" data-video-id=${videoId}
+    }>
       <div id="image-wrapper">
         <img
           src=${thumbnailSrc}
@@ -109,6 +123,22 @@ const VideoSearchModal = class extends Component {
         <button class="video-item__delete_button button">🗑</button>
       </div>
     </li>`;
+  }
+
+  bindObserver($targetEl) {
+    const options = {
+      root: null,
+      threshold: 1.0,
+    };
+    const handleIntersecting = ([{ isIntersecting, target }], observer) => {
+      if (isIntersecting) {
+        this.dispatchCustomEvent($('#app'), 'searchMoreVideo');
+        target.classList.remove('video-item--last');
+        observer.unobserve(target);
+      }
+    };
+    const observer = new IntersectionObserver(handleIntersecting, options);
+    observer.observe($targetEl);
   }
 };
 
