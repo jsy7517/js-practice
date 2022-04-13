@@ -1,6 +1,7 @@
+import { MAX_RESULT_VIDEO_COUNT } from '../lib/constants/searchVideo.js';
 import Component from '../lib/core/Component.js';
 import { searchMoreVideo } from '../lib/utils/api.js';
-import { $ } from '../lib/utils/dom.js';
+import { $, $$ } from '../lib/utils/dom.js';
 import { getVideoDetail } from '../lib/utils/video.js';
 
 const VideoSearchModal = class extends Component {
@@ -82,9 +83,23 @@ const VideoSearchModal = class extends Component {
     $('.video-list').replaceChildren();
   }
 
-  showSkeletonVideos() {}
+  showSkeletonVideos() {
+    const template = `
+      <li class="skeleton-video-item">
+        <div class="skeleton-video-item__thumbnail"></div>
+        <div class="skeleton-video-item__title"></div>
+        <div class="skeleton-video-item__detail"></div>
+      </li>
+    `.repeat(MAX_RESULT_VIDEO_COUNT);
 
-  hideSkeletonVideos() {}
+    $('.video-list').insertAdjacentHTML('beforeend', template);
+  }
+
+  hideSkeletonVideos() {
+    $$('.skeleton-video-item').forEach((skeletonEl) => {
+      $('.video-list').removeChild(skeletonEl);
+    });
+  }
 
   renderVideos(videos) {
     const lastVideoIdx = videos.length - 1;

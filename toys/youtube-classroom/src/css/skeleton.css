@@ -1,0 +1,46 @@
+.skeleton-video-item {
+  position: relative;
+  width: 240px;
+  height: 255px;
+}
+
+.skeleton-video-item * {
+  margin-bottom: 10px;
+}
+
+.skeleton-video-item__thumbnail,
+.skeleton-video-item__title,
+.skeleton-video-item__detail {
+  background-image: linear-gradient(
+    90deg,
+    var(--skeleton-bg-color-100) 0px,
+    var(--skeleton-bg-color-200) 30px,
+    var(--skeleton-bg-color-100) 60px
+  );
+  animation: refresh 2s infinite ease-in-out;
+}
+
+.skeleton-video-item__thumbnail {
+  width: 100%;
+  height: 135px;
+}
+
+.skeleton-video-item__title {
+  width: 100%;
+  height: 20px;
+}
+
+.skeleton-video-item__detail {
+  width: 70%;
+  height: 90px;
+}
+
+@keyframes refresh {
+  0% {
+    background-position: calc(-100px);
+  }
+  50%,
+  100% {
+    background-position: 320px;
+  }
+}

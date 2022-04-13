@@ -35,28 +35,31 @@ const App = class extends Component {
   }
 
   async handleSearchVideo(keyword) {
-    this.$videoSearchModal.showSkeletonVideos();
     if (keyword !== this.latestSearchKeyword) {
       this.$videoSearchModal.clearVideoList();
     }
 
-    // const { items, nextPageToken } = await searchVideo(keyword);
-    // this.latestSearchKeyword = keyword;
-    // this.pageToken = nextPageToken;
+    this.$videoSearchModal.showSkeletonVideos();
 
-    // this.$videoSearchModal.hideSkeletonVideos();
+    const { items, nextPageToken } = await searchVideo(keyword);
+    this.latestSearchKeyword = keyword;
+    this.pageToken = nextPageToken;
 
-    // this.$videoSearchModal.renderVideos(items);
+    this.$videoSearchModal.hideSkeletonVideos();
+    this.$videoSearchModal.renderVideos(items);
   }
 
   async handleSearchMoreVideo() {
-    this.$videoSearchModal.renderSkeletonVideos();
-    // const { items, nextPageToken } = await searchMoreVideo(
-    //   this.latestSearchKeyword,
-    //   this.pageToken,
-    // );
-    // this.pageToken = nextPageToken;
-    // this.$videoSearchModal.renderVideos(items);
+    this.$videoSearchModal.showSkeletonVideos();
+
+    const { items, nextPageToken } = await searchMoreVideo(
+      this.latestSearchKeyword,
+      this.pageToken,
+    );
+    this.pageToken = nextPageToken;
+
+    this.$videoSearchModal.hideSkeletonVideos();
+    this.$videoSearchModal.renderVideos(items);
   }
 };
 

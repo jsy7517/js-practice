@@ -13,4 +13,7 @@
   --search-modal-border-color: rgba(0, 0, 0, 0.12);
   --search-input-border-color: #b4b4b4;
   --search-button-bg-color: #00bcd4;
+
+  --skeleton-bg-color-100: #e0e0e0;
+  --skeleton-bg-color-200: #ededed;
 }
