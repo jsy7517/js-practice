@@ -73,12 +73,7 @@ const VideoManager = class {
   }
 
   set searchResultVideos(videos) {
-    if (!this.#searchResultVideos.length) {
-      this.#searchResultVideos = videos;
-      return;
-    }
-
-    this.#searchResultVideos = [...this.#searchResultVideos, videos];
+    this.#searchResultVideos = [...this.#searchResultVideos, ...videos];
   }
 };
 

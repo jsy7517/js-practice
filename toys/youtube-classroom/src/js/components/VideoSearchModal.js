@@ -151,7 +151,7 @@ const VideoSearchModal = class extends Component {
       getVideoDetail(video);
     return `
       <li class="video-item ${
-        idx === lastVideoIdx && 'video-item--last'
+        idx === lastVideoIdx ? 'video-item--last' : ''
       }" data-video-id=${videoId}
     }>
       <div class="video-item__thumbnail-container">

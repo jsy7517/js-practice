@@ -50,7 +50,7 @@ body {
   background: var(--gray-200);
 }
 
-.saved-video-list {
+.saved-video__list {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);

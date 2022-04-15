@@ -17,7 +17,7 @@ const SavedVideoList = class extends Component {
   renderVideos(videos) {
     this.$savedVideoListSection.replaceChildren();
     const template = `
-      <ul class="saved-video-list">
+      <ul class="saved-video__list">
         ${videos.map((video) => this.createVideoItemTemplate(video)).join('')}
       </ul>
     `;
