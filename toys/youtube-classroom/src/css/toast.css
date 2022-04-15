@@ -1,8 +1,8 @@
-.snackbar {
+.toast {
   display: flex;
   min-width: 250px;
   height: 55px;
-  background-color: var(--snackbar-bg-color);
+  background-color: var(--toast-bg-color);
   align-items: center;
   justify-content: center;
   color: #fff;
@@ -19,7 +19,7 @@
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
-.snackbar.hide {
+.toast.hide {
   display: none;
 }
 

@@ -3,7 +3,7 @@
 @import './variables.css';
 @import './skeleton.css';
 @import './utils.css';
-@import './snackbar.css';
+@import './toast.css';
 
 * {
   margin: 0;
