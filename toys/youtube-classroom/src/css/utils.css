@@ -1,3 +1,7 @@
 .rowspace\(20\) {
   height: 20px;
 }
+
+.columnspace\(5\) {
+  width: 5px;
+}
