@@ -162,7 +162,9 @@ const VideoSearchModal = class extends Component {
       </div>
       <h4 class="video-item__title">${title}</h4>
       <p class="video-item__channel-name">${channelTitle}</p>
-      <p class="video-item__published-date">${publishTime}</p>
+      <p class="video-item__published-date">${this.parsePublishTime(
+        publishTime,
+      )}</p>
       <div class="button-list">
         <button class="video-item__watch_button button"
         ${this.props.isSavedVideo(videoId) ? 'disabled' : ''} 
@@ -172,6 +174,10 @@ const VideoSearchModal = class extends Component {
         >🗑</button>
       </div>
     </li>`;
+  }
+
+  parsePublishTime(publishTime) {
+    return new Date(publishTime).toLocaleDateString('ko-kr');
   }
 
   bindObserver($targetEl) {
