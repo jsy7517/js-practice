@@ -1,11 +1,10 @@
 .skeleton-video-item {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 240px;
   height: 255px;
-}
-
-.skeleton-video-item * {
-  margin-bottom: 10px;
+  gap: 10px;
 }
 
 .skeleton-video-item__thumbnail,

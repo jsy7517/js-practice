@@ -22,6 +22,8 @@
     "function-paren-newline": "off",
     "indent": "off",
     "operator-linebreak": "off",
-    "object-curly-newline": "off"
+    "object-curly-newline": "off",
+    "wrap-iife": "off",
+    "func-names": "off"
   }
 }

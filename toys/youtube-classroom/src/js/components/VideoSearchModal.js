@@ -2,7 +2,7 @@ import { MAX_RESULT_VIDEO_COUNT } from '../lib/constants/searchVideo.js';
 import Component from '../lib/core/Component.js';
 import { searchMoreVideo } from '../lib/utils/api.js';
 import { $, $$ } from '../lib/utils/dom.js';
-import { getVideoDetail } from '../lib/utils/video.js';
+import { getVideoDetail, isSavedVideo } from '../lib/utils/video.js';
 
 const VideoSearchModal = class extends Component {
   mountTemplate() {
@@ -52,6 +52,9 @@ const VideoSearchModal = class extends Component {
     $('#video-search-form').addEventListener('submit', (e) =>
       this.dispatchSearchVideo(e),
     );
+    $('.video-list').addEventListener('click', (e) =>
+      this.dispatchManageVideo(e),
+    );
   }
 
   handleCloseModal({ target }) {
@@ -66,8 +69,27 @@ const VideoSearchModal = class extends Component {
       target: [searchInput],
     } = e;
     if (searchInput.value !== '') {
-      // TODO: Skeleton UI 보여주기
       this.dispatchCustomEvent($('#app'), 'searchVideo', searchInput.value);
+    }
+  }
+
+  dispatchManageVideo({ target }) {
+    if (!target.classList.contains('button')) return;
+
+    const isSaveVideoBtn = target.classList.contains(
+      'video-item__watch_button',
+    );
+    const isUnsaveVideoBtn = target.classList.contains(
+      'video-item__delete_button',
+    );
+    const { videoId } = target.closest('.video-item').dataset;
+    if (isSaveVideoBtn) {
+      this.dispatchCustomEvent($('#app'), 'saveVideo', videoId);
+      return;
+    }
+
+    if (isUnsaveVideoBtn) {
+      this.dispatchCustomEvent($('#app'), 'unsaveVideo', videoId);
     }
   }
 

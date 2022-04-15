@@ -1,6 +1,7 @@
 import GlobalNavbar from './components/GlobalNavBar.js';
 import VideoSearchModal from './components/VideoSearchModal.js';
 import Component from './lib/core/Component.js';
+import { getCache, setCache } from './lib/store/cache.js';
 import { searchMoreVideo, searchVideo } from './lib/utils/api.js';
 import { $ } from './lib/utils/dom.js';
 
@@ -28,6 +29,12 @@ const App = class extends Component {
     this.bindCustomEvent(this.$target, 'searchMoreVideo', () =>
       this.handleSearchMoreVideo(),
     );
+    this.bindCustomEvent(this.$target, 'saveVideo', (e) =>
+      this.handleSaveVideo(e.detail),
+    );
+    this.bindCustomEvent(this.$target, 'unsaveVideo', (e) =>
+      this.handleUnsaveVideo(e.detail),
+    );
   }
 
   handleOpenModal() {
@@ -41,10 +48,18 @@ const App = class extends Component {
 
     this.$videoSearchModal.showSkeletonVideos();
 
-    const { items, nextPageToken } = await searchVideo(keyword);
+    const { items, nextPageToken } =
+      getCache(keyword) ?? (await searchVideo(keyword));
+
+    if (!getCache(keyword)) {
+      setCache(keyword, {
+        items,
+        nextPageToken,
+      });
+    }
+
     this.latestSearchKeyword = keyword;
     this.pageToken = nextPageToken;
-
     this.$videoSearchModal.hideSkeletonVideos();
     this.$videoSearchModal.renderVideos(items);
   }
@@ -60,6 +75,16 @@ const App = class extends Component {
 
     this.$videoSearchModal.hideSkeletonVideos();
     this.$videoSearchModal.renderVideos(items);
+  }
+
+  handleSaveVideo(videoId) {
+    console.log(`save ${videoId}`);
+    // this.$unwatchedVideoList.renderVideos();
+  }
+
+  handleUnsaveVideo(videoId) {
+    console.log(`unsave ${videoId}`);
+    // this.$unwatchedVideoList.renderVideos();
   }
 };
 
