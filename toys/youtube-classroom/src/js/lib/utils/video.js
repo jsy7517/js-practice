@@ -19,3 +19,6 @@ export const getVideoDetail = (video) => {
     title,
   };
 };
+
+export const parsePublishTime = (publishTime) =>
+  new Date(publishTime).toLocaleDateString('ko-kr');

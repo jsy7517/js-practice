@@ -1,4 +1,5 @@
 import GlobalNavbar from './components/GlobalNavBar.js';
+import SavedVideoList from './components/SavedVideoList.js';
 import VideoSearchModal from './components/VideoSearchModal.js';
 import Component from './lib/core/Component.js';
 import VideoManager from './lib/model/videoManager.js';
@@ -24,12 +25,16 @@ const App = class extends Component {
 
   mountChildComponents() {
     new GlobalNavbar($('#app'));
+    this.$savedVideoList = new SavedVideoList($('#app'));
     this.$videoSearchModal = new VideoSearchModal($('#app'), {
       isSavedVideo: this.isSavedVideo.bind(this),
     });
   }
 
   bindEvent() {
+    this.bindCustomEvent(this.$target, 'showSavedVideos', (e) =>
+      this.handleShowSavedVideos(e.detail),
+    );
     this.bindCustomEvent(this.$target, 'openModal', () =>
       this.handleOpenModal(),
     );
@@ -47,8 +52,10 @@ const App = class extends Component {
     );
   }
 
-  isSavedVideo(videoId) {
-    return this.videoManager.checkVideoSaved(videoId);
+  handleShowSavedVideos(navBarStatus) {
+    this.$savedVideoList.renderVideos(
+      this.videoManager.getSavedVideosByStatus(navBarStatus),
+    );
   }
 
   handleOpenModal() {
@@ -94,14 +101,23 @@ const App = class extends Component {
 
   handleSaveVideo(videoId) {
     this.videoManager.saveVideo(videoId);
-    console.log(this.videoManager.savedVideos);
-    // this.$savedVideoList.renderVideos();
+    this.$savedVideoList.renderVideos(
+      this.videoManager.getSavedVideosByStatus('unwatched'),
+    );
   }
 
   handleUnsaveVideo(videoId) {
-    this.videoManager.unsaveVideo(videoId);
-    console.log(this.videoManager.savedVideos);
-    // this.$savedVideoList.renderVideos();
+    if (window.confirm('정말로 삭제하시겠어요?')) {
+      const videoStatus = this.videoManager.getVideoStatus(videoId);
+      this.videoManager.unsaveVideo(videoId);
+      this.$savedVideoList.renderVideos(
+        this.videoManager.getSavedVideosByStatus(videoStatus),
+      );
+    }
+  }
+
+  isSavedVideo(videoId) {
+    return this.videoManager.checkVideoSaved(videoId);
   }
 };
 

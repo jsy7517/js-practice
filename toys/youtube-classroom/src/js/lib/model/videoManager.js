@@ -32,6 +32,17 @@ const VideoManager = class {
     );
   }
 
+  getVideoStatus(targetVideoId) {
+    const { status } = this.#savedVideos.find(
+      ({
+        videoInfo: {
+          id: { videoId },
+        },
+      }) => videoId === targetVideoId,
+    );
+    return status;
+  }
+
   changeVideoStatus(targetVideoId, status) {
     const targetVideoInfo = this.#savedVideos.find(
       ({
@@ -57,8 +68,8 @@ const VideoManager = class {
     this.#searchResultVideos = [];
   }
 
-  get savedVideos() {
-    return this.#savedVideos;
+  getSavedVideosByStatus(videoStatus) {
+    return this.#savedVideos.filter(({ status }) => status === videoStatus);
   }
 
   set searchResultVideos(videos) {
