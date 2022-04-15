@@ -18,6 +18,7 @@
     "no-tabs": "off",
     "no-alert": "off",
     "no-console": "off",
+    "no-param-reassign": "off",
     "class-methods-use-this": "off",
     "function-paren-newline": "off",
     "indent": "off",
