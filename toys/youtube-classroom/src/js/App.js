@@ -1,11 +1,19 @@
 import GlobalNavbar from './components/GlobalNavBar.js';
 import VideoSearchModal from './components/VideoSearchModal.js';
 import Component from './lib/core/Component.js';
+import VideoManager from './lib/model/videoManager.js';
 import { getCache, setCache } from './lib/store/cache.js';
 import { searchMoreVideo, searchVideo } from './lib/utils/api.js';
 import { $ } from './lib/utils/dom.js';
 
 const App = class extends Component {
+  videoManager;
+
+  constructor($target) {
+    super($target);
+    this.videoManager = new VideoManager();
+  }
+
   mountTemplate() {
     const template = `
       <h1 class="classroom-container__title">👩🏻‍💻 나만의 유튜브 강의실 👨🏻‍💻</h1>
@@ -16,7 +24,9 @@ const App = class extends Component {
 
   mountChildComponents() {
     new GlobalNavbar($('#app'));
-    this.$videoSearchModal = new VideoSearchModal($('#app'));
+    this.$videoSearchModal = new VideoSearchModal($('#app'), {
+      isSavedVideo: this.isSavedVideo.bind(this),
+    });
   }
 
   bindEvent() {
@@ -37,15 +47,19 @@ const App = class extends Component {
     );
   }
 
+  isSavedVideo(videoId) {
+    return this.videoManager.checkVideoSaved(videoId);
+  }
+
   handleOpenModal() {
     this.$videoSearchModal.openModal();
   }
 
   async handleSearchVideo(keyword) {
-    if (keyword !== this.latestSearchKeyword) {
-      this.$videoSearchModal.clearVideoList();
-    }
+    if (keyword === this.latestSearchKeyword) return;
 
+    this.$videoSearchModal.clearVideoList();
+    this.videoManager.clearSearchResultVideos();
     this.$videoSearchModal.showSkeletonVideos();
 
     const { items, nextPageToken } =
@@ -60,6 +74,7 @@ const App = class extends Component {
 
     this.latestSearchKeyword = keyword;
     this.pageToken = nextPageToken;
+    this.videoManager.searchResultVideos = items;
     this.$videoSearchModal.hideSkeletonVideos();
     this.$videoSearchModal.renderVideos(items);
   }
@@ -72,19 +87,21 @@ const App = class extends Component {
       this.pageToken,
     );
     this.pageToken = nextPageToken;
-
+    this.videoManager.searchResultVideos = items;
     this.$videoSearchModal.hideSkeletonVideos();
     this.$videoSearchModal.renderVideos(items);
   }
 
   handleSaveVideo(videoId) {
-    console.log(`save ${videoId}`);
-    // this.$unwatchedVideoList.renderVideos();
+    this.videoManager.saveVideo(videoId);
+    console.log(this.videoManager.savedVideos);
+    // this.$savedVideoList.renderVideos();
   }
 
   handleUnsaveVideo(videoId) {
-    console.log(`unsave ${videoId}`);
-    // this.$unwatchedVideoList.renderVideos();
+    this.videoManager.unsaveVideo(videoId);
+    console.log(this.videoManager.savedVideos);
+    // this.$savedVideoList.renderVideos();
   }
 };
 

@@ -1,8 +1,7 @@
 import { MAX_RESULT_VIDEO_COUNT } from '../lib/constants/searchVideo.js';
 import Component from '../lib/core/Component.js';
-import { searchMoreVideo } from '../lib/utils/api.js';
 import { $, $$ } from '../lib/utils/dom.js';
-import { getVideoDetail, isSavedVideo } from '../lib/utils/video.js';
+import { getVideoDetail } from '../lib/utils/video.js';
 
 const VideoSearchModal = class extends Component {
   mountTemplate() {
@@ -85,11 +84,16 @@ const VideoSearchModal = class extends Component {
     const { videoId } = target.closest('.video-item').dataset;
     if (isSaveVideoBtn) {
       this.dispatchCustomEvent($('#app'), 'saveVideo', videoId);
+      // TODO: 더 이상 저장할 수 없는 경우 예외처리
+      target.disabled = true;
+      target.nextElementSibling.disabled = false;
       return;
     }
 
     if (isUnsaveVideoBtn) {
       this.dispatchCustomEvent($('#app'), 'unsaveVideo', videoId);
+      target.disabled = true;
+      target.previousElementSibling.disabled = false;
     }
   }
 
@@ -160,8 +164,12 @@ const VideoSearchModal = class extends Component {
       <p class="video-item__channel-name">${channelTitle}</p>
       <p class="video-item__published-date">${publishTime}</p>
       <div class="button-list">
-        <button class="video-item__watch_button button">✅</button>
-        <button class="video-item__delete_button button">🗑</button>
+        <button class="video-item__watch_button button"
+        ${this.props.isSavedVideo(videoId) ? 'disabled' : ''} 
+        >✅</button>
+        <button class="video-item__delete_button button" 
+        ${this.props.isSavedVideo(videoId) ? '' : 'disabled'}
+        >🗑</button>
       </div>
     </li>`;
   }

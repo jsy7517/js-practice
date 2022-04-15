@@ -3,7 +3,7 @@ const Component = class {
 
   props;
 
-  constructor($target, ...props) {
+  constructor($target, props = {}) {
     this.$target = $target;
     this.props = props;
     this.initStates();

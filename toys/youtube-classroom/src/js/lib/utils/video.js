@@ -19,5 +19,3 @@ export const getVideoDetail = (video) => {
     title,
   };
 };
-
-export const isSavedVideo = (videoId) => false;
