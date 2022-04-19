@@ -1,5 +1,5 @@
 const TOAST_DELAY = {
-  SHORT: 2000,
+  SHORT: 1800,
   LONG: 3500,
 };
 

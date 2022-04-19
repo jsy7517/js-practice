@@ -5,3 +5,9 @@
 .columnspace\(5\) {
   width: 5px;
 }
+
+.pack {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

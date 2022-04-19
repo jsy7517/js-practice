@@ -1,8 +1,8 @@
 import { MAX_RESULT_VIDEO_COUNT } from '../lib/constants/searchVideo.js';
-import TOAST_DELAY from '../lib/constants/toast.js';
 import Component from '../lib/core/Component.js';
 import { $, $$ } from '../lib/utils/dom.js';
 import { getVideoDetail, parsePublishTime } from '../lib/utils/video.js';
+import Toast from './Toast.js';
 
 const VideoSearchModal = class extends Component {
   mountTemplate() {
@@ -39,21 +39,11 @@ const VideoSearchModal = class extends Component {
           </section>
       </div>
     </dialog>
-    <dialog class="toast hide">
-    <div class="success-icon">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M21 10.0857V11.0057C20.9988 13.1621 20.3005 15.2604 19.0093 16.9875C17.7182 18.7147 15.9033 19.9782 13.8354 20.5896C11.7674 21.201 9.55726 21.1276 7.53447 20.3803C5.51168 19.633 3.78465 18.2518 2.61096 16.4428C1.43727 14.6338 0.879791 12.4938 1.02168 10.342C1.16356 8.19029 1.99721 6.14205 3.39828 4.5028C4.79935 2.86354 6.69279 1.72111 8.79619 1.24587C10.8996 0.770634 13.1003 0.988061 15.07 1.86572" stroke="#48B16E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M21 3.00574L11 13.0157L8 10.0157" stroke="#48B16E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>  
-    </div>
-    <div class="columnspace(5)"></div>
-    <p class="toast--message"></p>
-    </dialog>
+    <div class="toast--container"></div>
     `;
 
     this.$target.insertAdjacentHTML('beforeend', template);
     this.$modalContainer = $('.modal-container');
-    this.$toast = $('.toast');
   }
 
   bindEvent() {
@@ -97,8 +87,7 @@ const VideoSearchModal = class extends Component {
     if (isSaveVideoBtn) {
       this.dispatchCustomEvent($('#app'), 'saveVideo', videoId);
       // TODO: 더 이상 저장할 수 없는 경우 예외처리
-      $('.toast--message').textContent = '성공적으로 저장되었습니다!';
-      this.renderToast();
+      this.showToastWithMessage('성공적으로 저장되었습니다!');
       target.disabled = true;
       target.nextElementSibling.disabled = false;
       return;
@@ -106,19 +95,10 @@ const VideoSearchModal = class extends Component {
 
     if (isUnsaveVideoBtn) {
       this.dispatchCustomEvent($('#app'), 'unsaveVideo', videoId);
-      $('.toast--message').textContent = '성공적으로 삭제되었습니다!';
-      this.renderToast();
+      this.showToastWithMessage('성공적으로 삭제되었습니다!');
       target.disabled = true;
       target.previousElementSibling.disabled = false;
     }
-  }
-
-  renderToast() {
-    this.$toast.classList.toggle('hide');
-
-    setTimeout(() => {
-      this.$toast.classList.toggle('hide');
-    }, TOAST_DELAY.SHORT);
   }
 
   openModal() {
@@ -131,6 +111,12 @@ const VideoSearchModal = class extends Component {
 
   clearVideoList() {
     $('.video-list').replaceChildren();
+  }
+
+  showToastWithMessage(message) {
+    const toast = new Toast($('.toast--container'));
+    toast.setToastMessage(message);
+    toast.renderToast();
   }
 
   showSkeletonVideos() {
