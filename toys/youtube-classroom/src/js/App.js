@@ -121,10 +121,10 @@ const App = class extends Component {
 
   handleToggleVideoStatus(videoId) {
     const prevVideoStatus = this.videoManager.getVideoStatus(videoId);
-    // this.videoManager.toggleVideoStatus(videoId);
-    // this.$savedVideoList.renderVideos(
-    //   this.videoManager.getSavedVideosByStatus(prevVideoStatus),
-    // );
+    this.videoManager.toggleVideoStatus(videoId);
+    this.$savedVideoList.renderVideos(
+      this.videoManager.getSavedVideosByStatus(prevVideoStatus),
+    );
   }
 
   isSavedVideo(videoId) {

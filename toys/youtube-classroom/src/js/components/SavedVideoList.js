@@ -64,11 +64,11 @@ const SavedVideoList = class extends Component {
     this.$savedVideoListSection.insertAdjacentHTML('afterbegin', template);
   }
 
-  createVideoItemTemplate({ videoInfo }) {
+  createVideoItemTemplate({ videoInfo, status }) {
     const { videoId, thumbnailSrc, title, channelTitle, publishTime } =
       getVideoDetail(videoInfo);
     return `
-      <li class="video-item data-video-id=${videoId}}>
+      <li class="video-item" data-video-id=${videoId}>
       <div class="video-item__thumbnail-container">
         <img
           src=${thumbnailSrc}
@@ -79,7 +79,9 @@ const SavedVideoList = class extends Component {
       <p class="video-item__channel-name">${channelTitle}</p>
       <p class="video-item__published-date">${parsePublishTime(publishTime)}</p>
       <div class="button-list">
-        <button class="video-item__watch_button button">✅</button>
+        <button class="video-item__watch_button button">${
+          status === 'unwatched' ? '✅' : '🖥'
+        }</button>
         <button class="video-item__delete_button button">🗑</button>
       </div>
     </li>`;
