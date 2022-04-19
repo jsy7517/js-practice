@@ -26,6 +26,7 @@ const App = class extends Component {
   mountChildComponents() {
     new GlobalNavbar($('#app'));
     this.$savedVideoList = new SavedVideoList($('#app'));
+    this.$savedVideoList.renderVideos([]);
     this.$videoSearchModal = new VideoSearchModal($('#app'), {
       isSavedVideo: this.isSavedVideo.bind(this),
     });

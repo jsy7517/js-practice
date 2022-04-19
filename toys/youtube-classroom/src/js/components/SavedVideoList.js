@@ -55,11 +55,16 @@ const SavedVideoList = class extends Component {
 
   renderVideos(videos) {
     this.$savedVideoListSection.replaceChildren();
-    const template = `
+    const template =
+      videos.length > 0
+        ? `
       <ul class="saved-video__list">
         ${videos.map((video) => this.createVideoItemTemplate(video)).join('')}
       </ul>
-    `;
+    `
+        : `<div className="saved-video__empty--container pack">
+            <p class="saved-video__empty">저장된 비디오가 없습니다. <br> 비디오를 검색 후 저장해 보세요!</p>
+          </div>`;
 
     this.$savedVideoListSection.insertAdjacentHTML('afterbegin', template);
   }
