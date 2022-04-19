@@ -1,8 +1,8 @@
 import { MAX_RESULT_VIDEO_COUNT } from '../lib/constants/searchVideo.js';
 import Component from '../lib/core/Component.js';
 import { $, $$ } from '../lib/utils/dom.js';
+import { showToastWithMessage } from '../lib/utils/toast.js';
 import { getVideoDetail, parsePublishTime } from '../lib/utils/video.js';
-import Toast from './Toast.js';
 
 const VideoSearchModal = class extends Component {
   mountTemplate() {
@@ -86,16 +86,22 @@ const VideoSearchModal = class extends Component {
     const { videoId } = target.closest('.video-item').dataset;
     if (isSaveVideoBtn) {
       this.dispatchCustomEvent($('#app'), 'saveVideo', videoId);
-      // TODO: 더 이상 저장할 수 없는 경우 예외처리
-      this.showToastWithMessage('성공적으로 저장되었습니다!');
+      showToastWithMessage(
+        $('.toast--container'),
+        '성공적으로 저장되었습니다!',
+      );
       target.disabled = true;
       target.nextElementSibling.disabled = false;
+
       return;
     }
 
     if (isUnsaveVideoBtn) {
       this.dispatchCustomEvent($('#app'), 'unsaveVideo', videoId);
-      this.showToastWithMessage('성공적으로 삭제되었습니다!');
+      showToastWithMessage(
+        $('.toast--container'),
+        '성공적으로 삭제되었습니다!',
+      );
       target.disabled = true;
       target.previousElementSibling.disabled = false;
     }
@@ -111,12 +117,6 @@ const VideoSearchModal = class extends Component {
 
   clearVideoList() {
     $('.video-list').replaceChildren();
-  }
-
-  showToastWithMessage(message) {
-    const toast = new Toast($('.toast--container'));
-    toast.setToastMessage(message);
-    toast.renderToast();
   }
 
   showSkeletonVideos() {

@@ -1,5 +1,6 @@
 import Component from '../lib/core/Component.js';
 import { $ } from '../lib/utils/dom.js';
+import { showToastWithMessage } from '../lib/utils/toast.js';
 import { getVideoDetail, parsePublishTime } from '../lib/utils/video.js';
 
 const SavedVideoList = class extends Component {
@@ -8,10 +9,48 @@ const SavedVideoList = class extends Component {
       <div class="rowspace(20)"></div>
       <section class="saved-video-list-section">
       </section>
+      <div class="toast--container"></div>
     `;
 
     this.$target.insertAdjacentHTML('beforeend', template);
     this.$savedVideoListSection = $('.saved-video-list-section');
+  }
+
+  bindEvent() {
+    this.$savedVideoListSection.addEventListener('click', (e) =>
+      this.dispatchManageVideo(e),
+    );
+  }
+
+  dispatchManageVideo({ target }) {
+    if (!target.classList.contains('button')) return;
+
+    const isToggleVideoStatusBtn = target.classList.contains(
+      'video-item__watch_button',
+    );
+
+    const isUnsaveVideoBtn = target.classList.contains(
+      'video-item__delete_button',
+    );
+
+    const { videoId } = target.closest('.video-item').dataset;
+    if (isToggleVideoStatusBtn) {
+      this.dispatchCustomEvent($('#app'), 'toggleVideoStatus', videoId);
+      showToastWithMessage(
+        $('.toast--container'),
+        '성공적으로 이동되었습니다!',
+      );
+
+      return;
+    }
+
+    if (isUnsaveVideoBtn) {
+      this.dispatchCustomEvent($('#app'), 'unsaveVideo', videoId);
+      showToastWithMessage(
+        $('.toast--container'),
+        '성공적으로 삭제되었습니다!',
+      );
+    }
   }
 
   renderVideos(videos) {

@@ -33,17 +33,6 @@ const VideoManager = class {
   }
 
   getVideoStatus(targetVideoId) {
-    const { status } = this.#savedVideos.find(
-      ({
-        videoInfo: {
-          id: { videoId },
-        },
-      }) => videoId === targetVideoId,
-    );
-    return status;
-  }
-
-  changeVideoStatus(targetVideoId, status) {
     const targetVideoInfo = this.#savedVideos.find(
       ({
         videoInfo: {
@@ -51,7 +40,21 @@ const VideoManager = class {
         },
       }) => videoId === targetVideoId,
     );
-    targetVideoInfo.status = status;
+    console.log(targetVideoInfo);
+    return '';
+  }
+
+  toggleVideoStatus(targetVideoId) {
+    const targetVideoInfo = this.#savedVideos.find(
+      ({
+        videoInfo: {
+          id: { videoId },
+        },
+      }) => videoId === targetVideoId,
+    );
+    const oppositeVideoStatus =
+      targetVideoInfo.status === 'unwatched' ? 'watched' : 'unwatched';
+    targetVideoInfo.status = oppositeVideoStatus;
   }
 
   checkVideoSaved(targetVideoId) {

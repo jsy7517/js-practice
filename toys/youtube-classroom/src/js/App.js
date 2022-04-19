@@ -50,6 +50,9 @@ const App = class extends Component {
     this.bindCustomEvent(this.$target, 'unsaveVideo', (e) =>
       this.handleUnsaveVideo(e.detail),
     );
+    this.bindCustomEvent(this.$target, 'toggleVideoStatus', (e) =>
+      this.handleToggleVideoStatus(e.detail),
+    );
   }
 
   handleShowSavedVideos(navBarStatus) {
@@ -114,6 +117,14 @@ const App = class extends Component {
         this.videoManager.getSavedVideosByStatus(videoStatus),
       );
     }
+  }
+
+  handleToggleVideoStatus(videoId) {
+    const prevVideoStatus = this.videoManager.getVideoStatus(videoId);
+    // this.videoManager.toggleVideoStatus(videoId);
+    // this.$savedVideoList.renderVideos(
+    //   this.videoManager.getSavedVideosByStatus(prevVideoStatus),
+    // );
   }
 
   isSavedVideo(videoId) {
