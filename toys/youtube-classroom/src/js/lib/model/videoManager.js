@@ -1,3 +1,5 @@
+import { getLocalStorage, setLocalStorage } from '../store/localStorage.js';
+
 const VideoManager = class {
   #searchResultVideos;
 
@@ -5,7 +7,7 @@ const VideoManager = class {
 
   constructor() {
     this.#searchResultVideos = [];
-    this.#savedVideos = [];
+    this.#savedVideos = getLocalStorage('savedVideos') ?? [];
   }
 
   saveVideo(targetVideoId) {
@@ -20,6 +22,7 @@ const VideoManager = class {
         status: 'unwatched',
       },
     ];
+    setLocalStorage('savedVideos', this.#savedVideos);
   }
 
   unsaveVideo(targetVideoId) {
@@ -30,6 +33,7 @@ const VideoManager = class {
         },
       }) => videoId !== targetVideoId,
     );
+    setLocalStorage('savedVideos', this.#savedVideos);
   }
 
   getVideoStatus(targetVideoId) {
@@ -55,6 +59,7 @@ const VideoManager = class {
     const oppositeVideoStatus =
       targetVideo.status === 'unwatched' ? 'watched' : 'unwatched';
     targetVideo.status = oppositeVideoStatus;
+    setLocalStorage('savedVideos', this.#savedVideos);
   }
 
   checkVideoSaved(targetVideoId) {

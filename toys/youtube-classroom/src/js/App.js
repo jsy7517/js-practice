@@ -8,10 +8,7 @@ import { searchMoreVideo, searchVideo } from './lib/utils/api.js';
 import { $ } from './lib/utils/dom.js';
 
 const App = class extends Component {
-  videoManager;
-
-  constructor($target) {
-    super($target);
+  initStates() {
     this.videoManager = new VideoManager();
   }
 
@@ -26,7 +23,9 @@ const App = class extends Component {
   mountChildComponents() {
     new GlobalNavbar($('#app'));
     this.$savedVideoList = new SavedVideoList($('#app'));
-    this.$savedVideoList.renderVideos([]);
+    this.$savedVideoList.renderVideos(
+      this.videoManager.getSavedVideosByStatus('unwatched'),
+    );
     this.$videoSearchModal = new VideoSearchModal($('#app'), {
       isSavedVideo: this.isSavedVideo.bind(this),
     });
