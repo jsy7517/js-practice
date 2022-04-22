@@ -24,8 +24,10 @@ const Component = class {
 
   mountChildComponents() {}
 
-  bindCustomEvent($target, eventType, handler) {
-    $target.addEventListener(eventType, handler);
+  bindCustomEvent($target, customEventsWithHandler) {
+    customEventsWithHandler.forEach(({ eventType, handler }) => {
+      $target.addEventListener(eventType, handler);
+    });
   }
 
   dispatchCustomEvent($target, eventType, data = {}) {

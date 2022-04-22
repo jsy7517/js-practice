@@ -32,37 +32,43 @@ const App = class extends Component {
   }
 
   bindEvent() {
-    this.bindCustomEvent(this.$target, 'showSavedVideos', (e) =>
-      this.handleShowSavedVideos(e.detail),
-    );
-    this.bindCustomEvent(this.$target, 'openModal', () =>
-      this.handleOpenModal(),
-    );
-    this.bindCustomEvent(this.$target, 'searchVideo', (e) =>
-      this.handleSearchVideo(e.detail),
-    );
-    this.bindCustomEvent(this.$target, 'searchMoreVideo', () =>
-      this.handleSearchMoreVideo(),
-    );
-    this.bindCustomEvent(this.$target, 'saveVideo', (e) =>
-      this.handleSaveVideo(e.detail),
-    );
-    this.bindCustomEvent(this.$target, 'unsaveVideo', (e) =>
-      this.handleUnsaveVideo(e.detail),
-    );
-    this.bindCustomEvent(this.$target, 'toggleVideoStatus', (e) =>
-      this.handleToggleVideoStatus(e.detail),
-    );
+    this.bindCustomEvent(this.$target, [
+      { eventType: 'openModal', handler: () => this.handleOpenModal() },
+      {
+        eventType: 'showSavedVideos',
+        handler: (e) => this.handleShowSavedVideos(e.detail),
+      },
+      {
+        eventType: 'searchVideo',
+        handler: (e) => this.handleSearchVideo(e.detail),
+      },
+      {
+        eventType: 'searchMoreVideo',
+        handler: () => this.handleSearchMoreVideo(),
+      },
+      {
+        eventType: 'saveVideo',
+        handler: (e) => this.handleSaveVideo(e.detail),
+      },
+      {
+        eventType: 'unsaveVideo',
+        handler: (e) => this.handleUnsaveVideo(e.detail),
+      },
+      {
+        eventType: 'toggleVideoStatus',
+        handler: (e) => this.handleToggleVideoStatus(e.detail),
+      },
+    ]);
+  }
+
+  handleOpenModal() {
+    this.$videoSearchModal.openModal();
   }
 
   handleShowSavedVideos(navBarStatus) {
     this.$savedVideoList.renderVideos(
       this.videoManager.getSavedVideosByStatus(navBarStatus),
     );
-  }
-
-  handleOpenModal() {
-    this.$videoSearchModal.openModal();
   }
 
   async handleSearchVideo(keyword) {

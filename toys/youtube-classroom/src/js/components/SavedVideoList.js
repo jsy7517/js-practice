@@ -28,11 +28,9 @@ const SavedVideoList = class extends Component {
     const isToggleVideoStatusBtn = target.classList.contains(
       'video-item__watch_button',
     );
-
     const isUnsaveVideoBtn = target.classList.contains(
       'video-item__delete_button',
     );
-
     const { videoId } = target.closest('.video-item').dataset;
     if (isToggleVideoStatusBtn) {
       this.dispatchCustomEvent($('#app'), 'toggleVideoStatus', videoId);
