@@ -1,3 +1,4 @@
+import { ERROR_MESSAGES } from '../lib/constants/errorMessages.js';
 import { MAX_RESULT_VIDEO_COUNT } from '../lib/constants/searchVideo.js';
 import Component from '../lib/core/Component.js';
 import { $, $$ } from '../lib/utils/dom.js';
@@ -69,9 +70,12 @@ const VideoSearchModal = class extends Component {
     const {
       target: [searchInput],
     } = e;
-    if (searchInput.value !== '') {
-      this.dispatchCustomEvent($('#app'), 'searchVideo', searchInput.value);
+    if (searchInput.value === '') {
+      alert(ERROR_MESSAGES.NO_KEYWORD);
+      return;
     }
+
+    this.dispatchCustomEvent($('#app'), 'searchVideo', searchInput.value);
   }
 
   dispatchManageVideo({ target }) {
@@ -135,6 +139,15 @@ const VideoSearchModal = class extends Component {
     $$('.skeleton-video-item').forEach((skeletonEl) => {
       $('.video-list').removeChild(skeletonEl);
     });
+  }
+
+  renderNoResultPage() {
+    const template = `
+      <p class="modal--no-result">검색 결과가 존재하지 않습니다.
+      <br> 다른 검색어를 입력해 주세요.</p>
+    `;
+
+    $('.video-list').insertAdjacentHTML('beforeend', template);
   }
 
   renderVideos(videos) {

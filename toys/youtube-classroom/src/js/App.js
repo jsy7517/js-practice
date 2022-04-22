@@ -75,6 +75,11 @@ const App = class extends Component {
     const { items, nextPageToken } =
       getCache(keyword) ?? (await searchVideo(keyword));
 
+    if (!items) {
+      this.$videoSearchModal.renderNoResultPage();
+      return;
+    }
+
     if (!getCache(keyword)) {
       setCache(keyword, {
         items,
