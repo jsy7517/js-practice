@@ -7,7 +7,7 @@ const request = async (url, option = {}) => {
     return response.json();
   }
 
-  throw new Error(ERROR_MESSAGES.API_CALL_ERROR);
+  throw new Error(ERROR_MESSAGES.API_REQUEST_ERROR);
 };
 
 export const searchVideo = async (keyword) => {
@@ -16,7 +16,7 @@ export const searchVideo = async (keyword) => {
 };
 
 export const searchMoreVideo = async (keyword, nextPageToken) => {
-  if (!nextPageToken) throw new Error(ERROR_MESSAGES.NO_MORE_PAGES);
+  if (!nextPageToken) throw new Error(ERROR_MESSAGES.NO_MORE_SEARCH_RESULTS);
 
   const searchUrl = `https://www.googleapis.com/youtube/v3/search?type=video&key=${process.env.YOUTUBE_API_KEY}&pageToken=${nextPageToken}&q=${keyword}&part=snippet&maxResults=${MAX_RESULT_VIDEO_COUNT}`;
 
