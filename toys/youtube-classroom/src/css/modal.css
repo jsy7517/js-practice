@@ -161,8 +161,11 @@ svg {
 .video-item__save-button:hover {
   background: var(--gray-250);
 }
+@media only screen and (max-width: 1024px) {
+  .search-modal {
+    width: 800px;
+  }
 
-@media only screen and (max-width: 768px) {
   .video-list {
     width: 700px;
     grid-template-columns: repeat(3, 1fr);
@@ -175,7 +178,25 @@ svg {
   }
 }
 
+@media only screen and (max-width: 768px) {
+  .search-modal {
+    width: 700px;
+  }
+
+  .search-input__keyword {
+    width: 250px;
+  }
+
+  .video-list {
+    width: 600px;
+  }
+}
+
 @media only screen and (max-width: 375px) {
+  .search-input__keyword {
+    width: 150px;
+  }
+
   .video-list {
     width: 600px;
     grid-template-columns: repeat(2, 1fr);
