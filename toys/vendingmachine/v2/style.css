@@ -7,3 +7,7 @@ td {
 	border-collapse: collapse;
 	text-align: center;
 }
+
+form {
+	width: 600px;
+}
