@@ -56,7 +56,7 @@ const ProductAddView = class extends View {
       ${productList
 				.map(
 					(product) => `
-          <tr>
+          <tr class="product__info">
             <td>${product.name}</td>
             <td>${product.price}</td>
             <td>${product.quantity}</td>

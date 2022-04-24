@@ -8,12 +8,11 @@ describe('vending-machine-mission test', () => {
 	afterEach(() => {
 		cy.saveLocalStorage();
 	});
+
 	describe('step 1', () => {
 		describe('최초 접속 시', () => {
 			beforeEach(() => {
-				cy.visit(
-					'http://127.0.0.1:5501/Woowa/vendingmachine/second/javascript-vendingmachine-precourse-main/index.html'
-				);
+				cy.visit('http://127.0.0.1:5500/js-practice/toys/vendingmachine/v2/index.html');
 			});
 
 			it('기존에 저장된 데이터가 없다면 상품 관리 탭이 노출된다.', () => {
@@ -26,6 +25,7 @@ describe('vending-machine-mission test', () => {
 				it('새로운 상품을 추가한다.', () => {
 					cy.addNewProduct('펩시', 1000, 15);
 					cy.addNewProduct('환타', 2000, 20);
+					cy.addNewProduct('제로콜라', 2000, 25);
 					cy.productList().should('have.length', 3);
 				});
 			});
@@ -48,10 +48,8 @@ describe('vending-machine-mission test', () => {
 		});
 
 		describe('새로고침 시 데이터가 유지되어야 한다.', () => {
-			beforeEach(() => {
-				cy.visit(
-					'http://127.0.0.1:5501/Woowa/vendingmachine/second/javascript-vendingmachine-precourse-main/index.html'
-				);
+			before(() => {
+				cy.visit('http://127.0.0.1:5500/js-practice/toys/vendingmachine/v2/index.html');
 			});
 			it('상품 목록이 정상적으로 출력되어야 한다.', () => {
 				cy.productList().should('have.length', 3);

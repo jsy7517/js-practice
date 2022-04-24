@@ -44,7 +44,7 @@ Cypress.Commands.add('productListShould', (idx, name, price, quantity) => {
 });
 
 Cypress.Commands.add('productList', () => {
-	return cy.get('#current-product-table tr');
+	return cy.get('#current-product-table').find('.product__info');
 });
 
 Cypress.Commands.add('clickMenu', (selector) => {
