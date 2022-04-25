@@ -38,6 +38,9 @@ const App = class {
 	}
 
 	handleSelectTab({ target: { id } }) {
+		const latestTab = getLocalStorage('latestTab') ?? '';
+		if (latestTab === id) return;
+
 		if (id === 'crew-tab') {
 			this.showCrewTab();
 		}
@@ -49,11 +52,11 @@ const App = class {
 
 	loadLatestTab() {
 		const latestTab = getLocalStorage('latestTab') ?? '';
-		if (!latestTab || latestTab === 'crewTab') {
+		if (!latestTab || latestTab === 'crew-tab') {
 			this.showCrewTab();
 		}
 
-		if (latestTab === 'teamTab') {
+		if (latestTab === 'team-tab') {
 			this.showTeamTab();
 		}
 	}
@@ -62,13 +65,14 @@ const App = class {
 		this.hideCurrentTab();
 		this.crewManageController.renderCrewManageTab();
 		this.crewManageController.loadLatestCourse();
-		setLocalStorage('latestTab', 'crewTab');
+		setLocalStorage('latestTab', 'crew-tab');
 	}
 
 	showTeamTab() {
 		this.hideCurrentTab();
 		this.teamMatchingController.renderTeamMatchingTab();
-		setLocalStorage('latestTab', 'teamTab');
+		this.teamMatchingController.loadLatestMission();
+		setLocalStorage('latestTab', 'team-tab');
 	}
 
 	hideCurrentTab() {

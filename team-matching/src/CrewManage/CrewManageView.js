@@ -59,7 +59,7 @@ const CrewManageView = class extends View {
     </table>
     `;
 		$('#crew-manage-section')?.replaceChildren();
-		$('#crew-manage-section').insertAdjacentHTML('afterbegin', template);
+		$('#crew-manage-section')?.insertAdjacentHTML('afterbegin', template);
 	}
 
 	createCrewTableTemplate(course, crewList) {

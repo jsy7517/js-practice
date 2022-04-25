@@ -1,5 +1,5 @@
 import View from '../lib/core/View.js';
-import { $ } from '../lib/utils/dom.js';
+import { $, $$ } from '../lib/utils/dom.js';
 import { validateMemberCount } from '../lib/utils/validation.js';
 
 const TeamMatchingView = class extends View {
@@ -65,6 +65,16 @@ const TeamMatchingView = class extends View {
 			return;
 		}
 		this.emit('matchTeam', { course, mission, minimumMemberCountPerTeam });
+	}
+
+	renderLatestMission(course, mission) {
+		$$('#course-select option').forEach((opt) => {
+			opt.selected = opt.value === course ? true : false;
+		});
+
+		$$('#mission-select option').forEach((opt) => {
+			opt.selected = opt.value === mission ? true : false;
+		});
 	}
 
 	renderTeamMatchingSection({ course, mission, crewList }) {

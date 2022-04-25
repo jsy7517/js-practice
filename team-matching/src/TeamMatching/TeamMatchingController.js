@@ -1,4 +1,5 @@
 import { $ } from '../lib/utils/dom.js';
+import { getLocalStorage, setLocalStorage } from '../lib/utils/store.js';
 import TeamMatchingModel from './TeamMatchingModel.js';
 import TeamMatchingView from './TeamMatchingView.js';
 
@@ -17,6 +18,15 @@ const TeamMatchingController = class {
 		this.view.render();
 	}
 
+	loadLatestMission() {
+		const latestMission = getLocalStorage('latestMission') ?? null;
+		if (!latestMission) return;
+
+		const [course, mission] = latestMission.split('-');
+		this.view.renderLatestMission(course, mission);
+		this.handleSubmitMission({ course, mission });
+	}
+
 	bindEvent() {
 		this.view.on('submitMission', (e) => this.handleSubmitMission(e.detail));
 		this.view.on('matchTeam', (e) => this.handleMatchTeam(e.detail));
@@ -26,6 +36,7 @@ const TeamMatchingController = class {
 	handleSubmitMission({ course, mission }) {
 		const crewList = this.model.getCourseCrewList(course);
 		const teamMatchingResult = this.model.getTeamMatchingInfo(course, mission) ?? null;
+		setLocalStorage('latestMission', `${course}-${mission}`);
 		if (teamMatchingResult) {
 			this.view.renderTeamMatchingResult({
 				course,
