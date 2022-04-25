@@ -52,6 +52,11 @@ const TeamMatchingModel = class {
 		return teamMatchingResult;
 	}
 
+	rematchTeam(course, mission) {
+		this.#teamMatchingInfo[`${course}-${mission}`] = null;
+		setLocalStorage('teamMatchingInfo', this.#teamMatchingInfo);
+	}
+
 	getCourseCrewList(course) {
 		return this.#crewListInfo[course];
 	}

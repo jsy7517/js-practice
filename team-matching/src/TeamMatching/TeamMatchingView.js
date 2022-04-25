@@ -46,10 +46,6 @@ const TeamMatchingView = class extends View {
 		this.emit('submitMission', { course, mission });
 	}
 
-	bindSubmitTeamMemberCountEvent() {
-		$('#team-member-form').addEventListener('submit', (e) => this.onSubmitTeamMemberCount(e));
-	}
-
 	onSubmitTeamMemberCount(e) {
 		e.preventDefault();
 		const {
@@ -65,6 +61,10 @@ const TeamMatchingView = class extends View {
 			return;
 		}
 		this.emit('matchTeam', { course, mission, minimumMemberCountPerTeam });
+	}
+
+	onClickRematchBtn(course, mission) {
+		this.emit('rematchTeam', { course, mission });
 	}
 
 	renderLatestMission(course, mission) {
@@ -95,7 +95,8 @@ const TeamMatchingView = class extends View {
     `;
 
 		$('#team-matching-section')?.replaceChildren();
-		$('#team-matching-section').insertAdjacentHTML('afterbegin', template);
+		$('#team-matching-section')?.insertAdjacentHTML('afterbegin', template);
+		$('#team-member-form').addEventListener('submit', (e) => this.onSubmitTeamMemberCount(e));
 	}
 
 	renderTeamMatchingResult({ course, mission, teamMatchingResult }) {
@@ -118,7 +119,8 @@ const TeamMatchingView = class extends View {
 		`;
 
 		$('#team-matching-section')?.replaceChildren();
-		$('#team-matching-section').insertAdjacentHTML('afterbegin', template);
+		$('#team-matching-section')?.insertAdjacentHTML('afterbegin', template);
+		$('#rematch-team-button').addEventListener('click', () => this.onClickRematchBtn(course, mission));
 	}
 
 	createKoreanMissionString(course, mission) {

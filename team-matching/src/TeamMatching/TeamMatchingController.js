@@ -52,7 +52,6 @@ const TeamMatchingController = class {
 			mission,
 			crewList
 		});
-		this.view.bindSubmitTeamMemberCountEvent();
 	}
 
 	handleMatchTeam({ course, mission, minimumMemberCountPerTeam }) {
@@ -71,7 +70,10 @@ const TeamMatchingController = class {
 		});
 	}
 
-	handleRematchTeam() {}
+	handleRematchTeam({ course, mission }) {
+		this.model.rematchTeam(course, mission);
+		this.view.renderTeamMatchingSection({ course, mission, crewList: this.model.getCourseCrewList(course) });
+	}
 };
 
 export default TeamMatchingController;
