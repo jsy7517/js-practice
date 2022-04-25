@@ -56,15 +56,15 @@ const TeamMatchingView = class extends View {
 			target: [teamMemberCountInput]
 		} = e;
 
-		const { course } = e.target.dataset;
-		const memberCount = teamMemberCountInput.valueAsNumber;
+		const { course, mission } = e.target.dataset;
+		const minimumMemberCountPerTeam = teamMemberCountInput.valueAsNumber;
 		try {
-			validateMemberCount(memberCount);
+			validateMemberCount(minimumMemberCountPerTeam);
 		} catch (error) {
 			alert(error.message);
 			return;
 		}
-		this.emit('matchTeam', { course, memberCount });
+		this.emit('matchTeam', { course, mission, minimumMemberCountPerTeam });
 	}
 
 	renderTeamMatchingSection({ course, mission, crewList }) {
@@ -73,7 +73,7 @@ const TeamMatchingView = class extends View {
       <div>
         <div>
           <p>아직 매칭된 팀이 없습니다. 팀을 매칭하겠습니까?</p>
-          <form id="team-member-form" data-course=${course}>
+          <form id="team-member-form" data-course=${course} data-mission=${mission}>
             <label>1팀당 인원 수</label>
             <input id="team-member-count-input" type="number" />
             <button id="match-team-button">팀 매칭</button>
@@ -88,19 +88,27 @@ const TeamMatchingView = class extends View {
 		$('#team-matching-section').insertAdjacentHTML('afterbegin', template);
 	}
 
-	renderTeamMatchingList(teamMatchingList) {
+	renderTeamMatchingResult({ course, mission, teamMatchingResult }) {
 		const template = `
-		<h3>프론트엔드 숫자야구게임 조회</h3>
+		<h3>${this.createKoreanMissionString(course, mission)} 팀 조회</h3>
 		<p>팀이 매칭되었습니다.</p>
 		<ul id="team-match-result">
-			<li>준,포코</li>
+			${teamMatchingResult
+				.map(
+					(teamMemberList) => `
+				<li>${teamMemberList.join(', ')}</li>
+			`
+				)
+				.join('')}
 		</ul>
 		<p>
 			팀을 재매칭 하시겠습니까?
 			<button id="rematch-team-button">재매칭</button>
 		</p>
 		`;
-		console.log(teamMatchingList);
+
+		$('#team-matching-section')?.replaceChildren();
+		$('#team-matching-section').insertAdjacentHTML('afterbegin', template);
 	}
 
 	createKoreanMissionString(course, mission) {

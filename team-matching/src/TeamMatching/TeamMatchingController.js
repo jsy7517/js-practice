@@ -24,6 +24,17 @@ const TeamMatchingController = class {
 
 	handleSubmitMission({ course, mission }) {
 		const crewList = this.model.getCourseCrewList(course);
+		const teamMatchingResult = this.model.getTeamMatchingInfo(course, mission) ?? null;
+		if (teamMatchingResult) {
+			this.view.renderTeamMatchingResult({
+				course,
+				mission,
+				teamMatchingResult
+			});
+
+			return;
+		}
+
 		this.view.renderTeamMatchingSection({
 			course,
 			mission,
@@ -32,15 +43,20 @@ const TeamMatchingController = class {
 		this.view.bindSubmitTeamMemberCountEvent();
 	}
 
-	handleMatchTeam({ course, memberCount }) {
+	handleMatchTeam({ course, mission, minimumMemberCountPerTeam }) {
 		try {
-			this.model.matchTeam(course, memberCount);
+			this.model.matchTeam({ course, mission, minimumMemberCountPerTeam });
 		} catch (error) {
 			alert(error.message);
+
 			return;
 		}
 
-		this.view.renderTeamMatchingList(this.model.teamMatchingList);
+		this.view.renderTeamMatchingResult({
+			course,
+			mission,
+			teamMatchingResult: this.model.getTeamMatchingInfo(course, mission)
+		});
 	}
 };
 

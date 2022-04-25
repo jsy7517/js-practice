@@ -3,7 +3,7 @@ import { getLocalStorage, setLocalStorage } from '../lib/utils/store.js';
 
 const TeamMatchingModel = class {
 	#crewListInfo;
-	#teamMatchingList;
+	#teamMatchingInfo;
 
 	constructor() {
 		this.updateData();
@@ -11,44 +11,53 @@ const TeamMatchingModel = class {
 
 	updateData() {
 		this.#crewListInfo = getLocalStorage('crewListInfo') ?? [];
-		this.#teamMatchingList = getLocalStorage('teamMatchingList') ?? [];
+		this.#teamMatchingInfo = getLocalStorage('teamMatchingInfo') ?? {};
 	}
 
-	matchTeam(course, minimumMemberCountPerTeam) {
+	matchTeam({ course, mission, minimumMemberCountPerTeam }) {
 		const courseCrewList = this.#crewListInfo[course];
 		const crewCount = courseCrewList.length;
-		const eachTeamMemberCount = Math.floor(crewCount / minimumMemberCountPerTeam);
+
+		if (crewCount < minimumMemberCountPerTeam) {
+			throw new Error(ERROR_MESSAGES.TEAM_MATCHING.TOO_MANY_MEMBER_COUNT);
+		}
+
+		const teamMatchingResult = this.matchRandomTeam({ courseCrewList, crewCount, minimumMemberCountPerTeam });
+		this.#teamMatchingInfo[`${course}-${mission}`] = teamMatchingResult;
+		setLocalStorage('teamMatchingInfo', this.#teamMatchingInfo);
+	}
+
+	matchRandomTeam({ courseCrewList, crewCount, minimumMemberCountPerTeam }) {
+		const teamCount = Math.floor(crewCount / minimumMemberCountPerTeam);
+		if (teamCount === 1) return courseCrewList;
+
+		const teamMemberCountList = Array.from({ length: teamCount }, () => minimumMemberCountPerTeam);
 		let remainMemberCount = crewCount % minimumMemberCountPerTeam;
+		if (remainMemberCount > 0) {
+			let i = 0;
+			while (remainMemberCount--) {
+				teamMemberCountList[i++]++;
+			}
+		}
 
-		// if (crewCount < minimumTeamMemberCount || remainMemberCount > eachTeamMemberCount) {
-		// 	throw new Error(ERROR_MESSAGES.TEAM_MATCHING.TOO_MANY_MEMBER_COUNT);
-		// }
+		const randomMemberIndices = MissionUtils.Random.shuffle(Array.from({ length: crewCount }, (_, i) => i));
+		const randomCrewList = courseCrewList.map((_, i) => courseCrewList[randomMemberIndices[i]]);
+		const teamMatchingResult = [];
+		let start = 0;
+		teamMemberCountList.forEach((teamMemberCount) => {
+			teamMatchingResult.push(randomCrewList.slice(start, start + teamMemberCount));
+			start += teamMemberCount;
+		});
 
-		// const teamMemberCountList = Array.from({ length: eachTeamMemberCount }, () => eachTeamMemberCount);
-		// if (remainMemberCount !== 0) {
-		// 	let i = 0;
-		// 	while (remainMemberCount--) {
-		// 		teamMemberCountList[i++]++;
-		// 	}
-		// }
-		// const randomMemberIndices = MissionUtils.Random.shuffle(Array.from({ length: crewCount }, (_, i) => i));
-		// const randomCrewList = courseCrewList.map((_, i) => courseCrewList[randomMemberIndices[i]]);
-		// const teamMatchingList = [];
-		// let start = 0;
-		// teamMemberCountList.forEach((teamMemberCount) => {
-		// 	teamMatchingList.push(randomCrewList.slice(start, start + teamMemberCount));
-		// 	start += teamMemberCount;
-		// });
-		// this.#teamMatchingList = teamMatchingList;
-		// setLocalStorage('teamMatchingList', this.#teamMatchingList);
+		return teamMatchingResult;
 	}
 
 	getCourseCrewList(course) {
 		return this.#crewListInfo[course];
 	}
 
-	get teamMatchingList() {
-		return this.#teamMatchingList;
+	getTeamMatchingInfo(course, mission) {
+		return this.#teamMatchingInfo[`${course}-${mission}`];
 	}
 };
 
