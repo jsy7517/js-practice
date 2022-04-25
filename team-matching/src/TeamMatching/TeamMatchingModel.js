@@ -14,33 +14,33 @@ const TeamMatchingModel = class {
 		this.#teamMatchingList = getLocalStorage('teamMatchingList') ?? [];
 	}
 
-	matchTeam(course, minimumTeamMemberCount) {
+	matchTeam(course, minimumMemberCountPerTeam) {
 		const courseCrewList = this.#crewListInfo[course];
 		const crewCount = courseCrewList.length;
-		const eachTeamMemberCount = Math.floor(crewCount / minimumTeamMemberCount);
-		let remainMemberCount = crewCount % minimumTeamMemberCount;
+		const eachTeamMemberCount = Math.floor(crewCount / minimumMemberCountPerTeam);
+		let remainMemberCount = crewCount % minimumMemberCountPerTeam;
 
-		if (crewCount < minimumTeamMemberCount || remainMemberCount > eachTeamMemberCount) {
-			throw new Error(ERROR_MESSAGES.TEAM_MATCHING.TOO_MANY_MEMBER_COUNT);
-		}
+		// if (crewCount < minimumTeamMemberCount || remainMemberCount > eachTeamMemberCount) {
+		// 	throw new Error(ERROR_MESSAGES.TEAM_MATCHING.TOO_MANY_MEMBER_COUNT);
+		// }
 
-		const teamMemberCountList = Array.from({ length: eachTeamMemberCount }, () => eachTeamMemberCount);
-		if (remainMemberCount !== 0) {
-			let i = 0;
-			while (remainMemberCount--) {
-				teamMemberCountList[i++]++;
-			}
-		}
-		const randomMemberIndices = MissionUtils.Random.shuffle(Array.from({ length: crewCount }, (_, i) => i));
-		const randomCrewList = courseCrewList.map((_, i) => courseCrewList[randomMemberIndices[i]]);
-		const teamMatchingList = [];
-		let start = 0;
-		teamMemberCountList.forEach((teamMemberCount) => {
-			teamMatchingList.push(randomCrewList.slice(start, start + teamMemberCount));
-			start += teamMemberCount;
-		});
-		this.#teamMatchingList = teamMatchingList;
-		setLocalStorage('teamMatchingList', this.#teamMatchingList);
+		// const teamMemberCountList = Array.from({ length: eachTeamMemberCount }, () => eachTeamMemberCount);
+		// if (remainMemberCount !== 0) {
+		// 	let i = 0;
+		// 	while (remainMemberCount--) {
+		// 		teamMemberCountList[i++]++;
+		// 	}
+		// }
+		// const randomMemberIndices = MissionUtils.Random.shuffle(Array.from({ length: crewCount }, (_, i) => i));
+		// const randomCrewList = courseCrewList.map((_, i) => courseCrewList[randomMemberIndices[i]]);
+		// const teamMatchingList = [];
+		// let start = 0;
+		// teamMemberCountList.forEach((teamMemberCount) => {
+		// 	teamMatchingList.push(randomCrewList.slice(start, start + teamMemberCount));
+		// 	start += teamMemberCount;
+		// });
+		// this.#teamMatchingList = teamMatchingList;
+		// setLocalStorage('teamMatchingList', this.#teamMatchingList);
 	}
 
 	getCourseCrewList(course) {

@@ -84,7 +84,7 @@ const TeamMatchingView = class extends View {
       </div>
     `;
 
-		$('#team-matching-section').replaceChildren();
+		$('#team-matching-section')?.replaceChildren();
 		$('#team-matching-section').insertAdjacentHTML('afterbegin', template);
 	}
 

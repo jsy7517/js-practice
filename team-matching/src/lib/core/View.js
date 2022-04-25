@@ -11,7 +11,7 @@ const View = class {
 	}
 
 	emit(event, data = {}) {
-		const newEvent = new CustomEvent(event, { detail: data, bubbles: true });
+		const newEvent = new CustomEvent(event, { detail: data });
 		this.$target.dispatchEvent(newEvent);
 		return this;
 	}

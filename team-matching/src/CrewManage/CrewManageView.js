@@ -18,11 +18,11 @@ const CrewManageView = class extends View {
 
 	constructor($target) {
 		super($target);
+		this.bindEvent();
 	}
 
 	render() {
 		this.$target.insertAdjacentHTML('afterbegin', CrewManageView.#template);
-		this.bindEvent();
 	}
 
 	bindEvent() {
