@@ -48,7 +48,7 @@ const CrewManageView = class extends View {
     <h3>${koreanCourse} 크루 관리</h3>
     <form id="add-crew-form" data-course=${course}>
       <label>크루 이름</label>
-      <input id="crew-name-input" type="text" />
+      <input id="crew-name-input" type="text" required/>
       <button id="add-crew-button" type="submit">확인</button>
     </form>
   </section>
@@ -58,7 +58,7 @@ const CrewManageView = class extends View {
       ${this.createCrewTableTemplate(course, crewList)}
     </table>
     `;
-		$('#crew-manage-section').replaceChildren();
+		$('#crew-manage-section')?.replaceChildren();
 		$('#crew-manage-section').insertAdjacentHTML('afterbegin', template);
 	}
 
@@ -105,6 +105,7 @@ const CrewManageView = class extends View {
 		const { course } = e.target.dataset;
 		const newCrew = crewNameInput.value;
 		this.emit('submitNewCrew', { course, newCrew });
+		$('#crew-name-input').focus();
 	}
 
 	onClickDeleteCrewBtn(e) {

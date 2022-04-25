@@ -17,7 +17,6 @@ const CrewManageModel = class {
 
 	addNewCrew(course, newCrew) {
 		const crewList = this.#crewListInfo[course];
-		console.log(newCrew);
 		if (crewList.includes(newCrew)) {
 			throw new Error(ERROR_MESSAGES.CREW_MANAGE.DUPLICATED_CREW_NAME);
 		}

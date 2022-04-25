@@ -20,6 +20,7 @@ const TeamMatchingController = class {
 	bindEvent() {
 		this.view.on('submitMission', (e) => this.handleSubmitMission(e.detail));
 		this.view.on('matchTeam', (e) => this.handleMatchTeam(e.detail));
+		this.view.on('rematchTeam', (e) => this.handleRematchTeam(e.detail));
 	}
 
 	handleSubmitMission({ course, mission }) {
@@ -58,6 +59,8 @@ const TeamMatchingController = class {
 			teamMatchingResult: this.model.getTeamMatchingInfo(course, mission)
 		});
 	}
+
+	handleRematchTeam() {}
 };
 
 export default TeamMatchingController;
