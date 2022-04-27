@@ -1,0 +1,17 @@
+.wspace\(30\) {
+  height: 30px;
+}
+
+.wspace\(50\) {
+  height: 50px;
+}
+
+.hspace\(10\) {
+  width: 10px;
+}
+
+.pack {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
