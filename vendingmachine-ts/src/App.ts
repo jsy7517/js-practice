@@ -1,10 +1,10 @@
 import { getLocalStorage, setLocalStorage } from './lib/store/localStorage';
 import { $ } from './lib/utils/dom';
 import { bindCustomEvent } from './lib/utils/eventManager';
-import { PathKey, route, ROUTE_PATH } from './lib/utils/router';
+import { route } from './lib/utils/router';
 import HomePage from './ui/pages/HomePage';
 import LoginPage from './ui/pages/LoginPage';
-import SignUpPage from './ui/pages/SignUpPage';
+import SignupPage from './ui/pages/SignupPage';
 
 const App = class {
   $target = $('#app');
@@ -13,12 +13,12 @@ const App = class {
 
   loginPage;
 
-  signUpPage;
+  signupPage;
 
   constructor() {
     this.homePage = new HomePage();
     this.loginPage = new LoginPage();
-    this.signUpPage = new SignUpPage();
+    this.signupPage = new SignupPage();
 
     bindCustomEvent(this.$target, '@route', (e) => this.handleRoute(e.detail));
     window.addEventListener('popstate', (e) => this.handlePopState(e));
@@ -28,12 +28,17 @@ const App = class {
 
   loadLatestPage() {
     const latestPage = getLocalStorage('latestPage') ?? null;
+    if (window.location.pathname !== latestPage) {
+      this.renderPageByPathname('/');
+      return;
+    }
+
     this.renderPageByPathname(latestPage);
   }
 
-  handleRoute(key: PathKey) {
-    route(ROUTE_PATH[key], key);
-    this.renderPageByPathname(ROUTE_PATH[key]);
+  handleRoute(pathname) {
+    route(pathname);
+    this.renderPageByPathname(pathname);
   }
 
   handlePopState({ state }) {
@@ -46,7 +51,7 @@ const App = class {
         this.loginPage.render();
         break;
       case '/signup':
-        this.signUpPage.render();
+        this.signupPage.render();
         break;
       case '/manage':
         this.homePage.render();

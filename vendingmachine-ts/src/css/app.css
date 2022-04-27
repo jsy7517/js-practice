@@ -35,3 +35,11 @@
 .btn:hover {
   /* background-color: ; */
 }
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: #282828;
+}

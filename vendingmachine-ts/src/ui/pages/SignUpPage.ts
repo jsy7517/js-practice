@@ -1,6 +1,6 @@
 import PageElement from '../common/PageElement';
 
-const SignUpPage = class extends PageElement {
+const SignupPage = class extends PageElement {
   static #template = /* template */ `
     <signup-page class="d-flex-col">
       <h2 class="title">회원가입</h2>
@@ -31,9 +31,9 @@ const SignUpPage = class extends PageElement {
 
   render() {
     this.$target.replaceChildren();
-    this.$target.insertAdjacentHTML('afterbegin', SignUpPage.#template);
+    this.$target.insertAdjacentHTML('afterbegin', SignupPage.#template);
   }
 };
 
-customElements.define('signup-page', SignUpPage);
-export default SignUpPage;
+customElements.define('signup-page', SignupPage);
+export default SignupPage;

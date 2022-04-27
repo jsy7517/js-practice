@@ -20,7 +20,7 @@ const LoginPage = class extends PageElement {
           <button type="submit" class="form__button__submit">로그인</button>
         </form>
         <div class="wspace(10)"></div>
-        <p>아직 회원이 아니신가요? <a id="signup">회원가입</a></p>
+        <p>아직 회원이 아니신가요? <a href="/signup" id="signup">회원가입</a></p>
       </div>
     </login-page>
   `;
@@ -32,7 +32,8 @@ const LoginPage = class extends PageElement {
   }
 
   handleClickSignUpBtn(e) {
-    dispatchCustomEvent(this.$target, '@route', e.target.id.toUpperCase());
+    e.preventDefault();
+    dispatchCustomEvent(this.$target, '@route', e.target.pathname);
   }
 };
 
