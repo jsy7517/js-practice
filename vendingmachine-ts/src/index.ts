@@ -1,4 +1,2 @@
-import App from './App';
+import './App';
 import './css/index.css';
-
-new App();
