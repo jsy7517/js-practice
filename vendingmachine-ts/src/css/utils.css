@@ -6,6 +6,18 @@
   height: 50px;
 }
 
+.wspace\(5\) {
+  height: 5px;
+}
+
+.wspace\(10\) {
+  height: 10px;
+}
+
+.wspace\(20\) {
+  height: 20px;
+}
+
 .hspace\(10\) {
   width: 10px;
 }
@@ -14,4 +26,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.d-flex-col {
+  display: flex;
+  flex-direction: column;
 }

@@ -1,0 +1,24 @@
+#form-container {
+  width: 400px;
+}
+
+#form-container .form .form__input {
+  height: 35px;
+  border-radius: 4px;
+  border: 1px solid gray;
+  padding-left: 7px;
+}
+
+#form-container .form .form__button__submit {
+  background-color: #00bcd4;
+  height: 35px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #fff;
+}
+
+#signup {
+  color: #3581d7;
+  cursor: pointer;
+}
