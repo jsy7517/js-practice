@@ -28,7 +28,14 @@ const LoginPage = class extends PageElement {
   render() {
     this.$target.replaceChildren();
     this.$target.insertAdjacentHTML('afterbegin', LoginPage.#template);
+    $('#login-form').addEventListener('submit', (e) =>
+      this.handleSubmitLoginForm(e),
+    );
     $('#signup').addEventListener('click', (e) => this.handleClickSignUpBtn(e));
+  }
+
+  handleSubmitLoginForm(e) {
+    e.preventDefault();
   }
 
   handleClickSignUpBtn(e) {

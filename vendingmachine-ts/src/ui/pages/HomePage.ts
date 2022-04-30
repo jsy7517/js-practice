@@ -11,27 +11,33 @@ const HomePage = class extends PageElement {
       <h1 class="title">🍿 자판기 🍿</h1>
       <div class="wspace(30)"></div>
       <nav class="global__nav">
-        <a href="/manage" id="manage" class="btn pack">상품 관리</a>
+        <a href="/manage" class="btn pack">상품 관리</a>
         <div class="hspace(10)"></div>
-        <a href="/charge" id="charge" class="btn pack">잔돈 충전</a>
+        <a href="/charge" class="btn pack">잔돈 충전</a>
         <div class="hspace(10)"></div>
-        <a href="/purchase" id="purchase" class="btn pack">상품 구매</a>
+        <a href="/purchase" class="btn pack">상품 구매</a>
       </nav>
+      <manage-tab></manage-tab>
+      <charge-tab></charge-tab>
+      <purchase-tab></purchase-tab>
     </home-page>
   `;
-
-  handleClickAnchor(e) {
-    if (!e.target.classList.contains('btn')) return;
-    e.preventDefault();
-    dispatchCustomEvent(this.$target, '@route', e.target.pathname);
-  }
 
   render() {
     this.$target.replaceChildren();
     this.$target.insertAdjacentHTML('afterbegin', HomePage.#template);
     $('home-page').addEventListener('click', (e) => this.handleClickAnchor(e));
   }
+
+  handleClickAnchor(e) {
+    if (!e.target.classList.contains('btn')) return;
+    e.preventDefault();
+    dispatchCustomEvent(this.$target, '@route', e.target.pathname);
+  }
 };
 
 customElements.define('home-page', HomePage);
+// customElements.define('manage-tab', HomePage);
+// customElements.define('purchase-tab', HomePage);
+// customElements.define('charge-tab', HomePage);
 export default HomePage;

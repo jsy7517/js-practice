@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --watch --no-cache",
     "start": "webpack serve --open",
-    "build": "webpack"
+    "build": "webpack",
+    "server": "json-server-auth db.json -r routes.json"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.4.7",
     "json-server": "^0.17.0",
+    "json-server-auth": "^2.1.0",
     "prettier": "2.6.2",
     "style-loader": "^3.3.1",
     "ts-jest": "^27.1.3",

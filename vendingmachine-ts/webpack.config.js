@@ -11,6 +11,12 @@ module.exports = {
   devServer: {
     port: 9000,
     historyApiFallback: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        pathRewrite: { '^/api': '' },
+      },
+    },
   },
   devtool: 'source-map',
   output: {

@@ -5,7 +5,13 @@ const PageElement = class extends HTMLElement {
 
   bindEvent() {}
 
+  bindObserver(domain, eventType) {
+    domain.observe({ eventType, target: this.$target });
+  }
+
   render() {}
+
+  notify() {}
 };
 
 export default PageElement;
