@@ -1,3 +1,10 @@
 {
-  "users": []
+  "users": [
+    {
+      "email": "test1@gmail.com",
+      "password": "$2a$10$Qj/9RGvblbV/2i/MuTe/qubENbGcJvQ5u9ohSedPLHZc/iWIrvToi",
+      "userName": "정수영",
+      "id": 1
+    }
+  ]
 }

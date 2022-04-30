@@ -1,3 +1,4 @@
+import { BASE_URL, HTTP_METHOD, request } from '../lib/utils/api';
 import { $ } from '../lib/utils/dom';
 import { bindCustomEvent } from '../lib/utils/eventManager';
 import Domain from './domain';
@@ -11,6 +12,16 @@ export interface SignupProps extends LoginProps {
   userName: string;
   confirmedPassword: string;
 }
+
+const AuthApi = {
+  async login(data) {
+    return request(`${BASE_URL}/login`, HTTP_METHOD.POST(data));
+  },
+
+  async signup(data) {
+    return request(`${BASE_URL}/signup`, HTTP_METHOD.POST(data));
+  },
+};
 
 const Auth = class extends Domain {
   $target = $('#app');
@@ -33,11 +44,20 @@ const Auth = class extends Domain {
   }
 
   handleLogin({ email, password }: LoginProps) {
-    console.log(email, password);
+    AuthApi.login({
+      email,
+      password,
+    });
   }
 
-  handleSignup({ email, userName, password, confirmedPassword }: SignupProps) {
-    console.log(email, userName, password, confirmedPassword);
+  handleSignup(data: SignupProps) {
+    // TODO: Validate Signup Props
+    const { email, userName, password, confirmedPassword } = data;
+    AuthApi.signup({
+      email,
+      userName,
+      password,
+    });
   }
 };
 
