@@ -19,5 +19,6 @@ module.exports = {
     'class-methods-use-this': 'off',
     'no-unused-vars': 'warn',
     'function-paren-newline': 'off',
+    'object-curly-newline': 'off',
   },
 };
