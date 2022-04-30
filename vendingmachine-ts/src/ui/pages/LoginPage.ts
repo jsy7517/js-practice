@@ -23,6 +23,7 @@ const LoginPage = class extends PageElement {
         <p>아직 회원이 아니신가요? <a href="/signup" id="signup">회원가입</a></p>
       </div>
     </login-page>
+    <div id="toast-container"></div>
   `;
 
   render() {

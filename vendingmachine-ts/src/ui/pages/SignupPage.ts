@@ -29,6 +29,7 @@ const SignupPage = class extends PageElement {
         </form>
       </div>
     </signup-page>
+    <div id="toast-container"></div>
   `;
 
   render() {
@@ -63,10 +64,7 @@ const SignupPage = class extends PageElement {
     });
   }
 
-  notify() {
-    // TODO: Show Toast
-    // TODO: redirect to Login Page
-  }
+  notify() {}
 };
 
 customElements.define('signup-page', SignupPage);

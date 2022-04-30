@@ -1,3 +1,4 @@
+import { showToast } from '../lib/utils/toast';
 import { BASE_URL, HTTP_METHOD, request } from '../lib/utils/api';
 import { $ } from '../lib/utils/dom';
 import {
@@ -59,7 +60,10 @@ const Auth = class extends Domain {
     try {
       validateLoginResponse(response);
     } catch (err) {
-      alert(err.message);
+      showToast({
+        isError: true,
+        message: err.message,
+      });
       return;
     }
 
@@ -85,12 +89,19 @@ const Auth = class extends Domain {
     try {
       validateSignupResponse(response);
     } catch (err) {
-      alert(err.message);
+      showToast({
+        isError: true,
+        message: err.message,
+      });
       return;
     }
 
     // TODO: Dispatch
     dispatchCustomEvent(this.$target, '@route', { pathname: '/login' });
+    showToast({
+      isError: false,
+      message: '회원가입에 성공했습니다!',
+    });
   }
 };
 
