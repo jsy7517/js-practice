@@ -2,7 +2,7 @@ import Auth from './domain/auth';
 import { getLocalStorage, setLocalStorage } from './lib/store/localStorage';
 import { $ } from './lib/utils/dom';
 import { bindCustomEvent } from './lib/utils/eventManager';
-import { Pathname, route } from './lib/utils/router';
+import { route } from './lib/utils/router';
 import HomePage from './ui/pages/HomePage';
 import LoginPage from './ui/pages/LoginPage';
 import SignupPage from './ui/pages/SignupPage';

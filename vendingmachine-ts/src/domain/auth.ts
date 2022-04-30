@@ -65,7 +65,7 @@ const Auth = class extends Domain {
 
     // TODO: Notify
     const { accessToken, user } = response;
-    console.log(accessToken, user);
+    dispatchCustomEvent(this.$target, '@route', { pathname: '/' });
   }
 
   async handleSignup({
