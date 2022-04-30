@@ -1,7 +1,14 @@
 import { BASE_URL, HTTP_METHOD, request } from '../lib/utils/api';
 import { $ } from '../lib/utils/dom';
-import { bindCustomEvent } from '../lib/utils/eventManager';
+import {
+  bindCustomEvent,
+  dispatchCustomEvent,
+} from '../lib/utils/eventManager';
 import Domain from './domain';
+import {
+  validateLoginResponse,
+  validateSignupResponse,
+} from '../lib/validation/authValidation';
 
 export interface LoginProps {
   email: string;
@@ -43,21 +50,47 @@ const Auth = class extends Domain {
     }
   }
 
-  handleLogin({ email, password }: LoginProps) {
-    AuthApi.login({
+  async handleLogin({ email, password }: LoginProps) {
+    const response = await AuthApi.login({
       email,
       password,
     });
+
+    try {
+      validateLoginResponse(response);
+    } catch (err) {
+      alert(err.message);
+      return;
+    }
+
+    // TODO: Notify
+    const { accessToken, user } = response;
+    console.log(accessToken, user);
   }
 
-  handleSignup(data: SignupProps) {
+  async handleSignup({
+    email,
+    userName,
+    password,
+    confirmedPassword,
+  }: SignupProps) {
     // TODO: Validate Signup Props
-    const { email, userName, password, confirmedPassword } = data;
-    AuthApi.signup({
+    // validateSignupFormData()
+    const response = await AuthApi.signup({
       email,
       userName,
       password,
     });
+
+    try {
+      validateSignupResponse(response);
+    } catch (err) {
+      alert(err.message);
+      return;
+    }
+
+    // TODO: Dispatch
+    dispatchCustomEvent(this.$target, '@route', { pathname: '/login' });
   }
 };
 

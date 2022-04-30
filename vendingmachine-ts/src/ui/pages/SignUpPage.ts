@@ -62,6 +62,11 @@ const SignupPage = class extends PageElement {
       confirmedPassword,
     });
   }
+
+  notify() {
+    // TODO: Show Toast
+    // TODO: redirect to Login Page
+  }
 };
 
 customElements.define('signup-page', SignupPage);

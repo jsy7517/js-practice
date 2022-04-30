@@ -34,7 +34,7 @@ const App = class {
   loadLatestPage() {
     const latestPage: string = getLocalStorage('latestPage') ?? null;
     if (window.location.pathname !== latestPage) {
-      this.renderPageByPathname('/');
+      this.handleRoute({ pathname: '/' });
       return;
     }
 
@@ -46,13 +46,13 @@ const App = class {
     this.signupPage.bindObserver(this.authDomain, 'SIGNUP');
   }
 
-  handleRoute(pathname: Pathname) {
+  handleRoute({ pathname }) {
     route(pathname);
     this.renderPageByPathname(pathname);
   }
 
   handlePopState({ state }) {
-    this.renderPageByPathname(state);
+    this.renderPageByPathname(state ?? '/');
   }
 
   renderPageByPathname(pathname) {

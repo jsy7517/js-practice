@@ -9,7 +9,7 @@ export type Pathname =
 export const { route } = {
   route(pathname: Pathname) {
     if (window.location.pathname !== pathname) {
-      window.history.pushState(pathname, '', pathname);
+      window.history.pushState(pathname, window.document.title, pathname);
     }
   },
 };

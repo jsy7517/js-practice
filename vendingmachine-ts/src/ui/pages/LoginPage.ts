@@ -46,7 +46,7 @@ const LoginPage = class extends PageElement {
 
   handleClickSignUpBtn(e) {
     e.preventDefault();
-    dispatchCustomEvent(this.$target, '@route', e.target.pathname);
+    dispatchCustomEvent(this.$target, '@route', e.target);
   }
 };
 

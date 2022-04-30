@@ -32,7 +32,7 @@ const HomePage = class extends PageElement {
   handleClickAnchor(e) {
     if (!e.target.classList.contains('btn')) return;
     e.preventDefault();
-    dispatchCustomEvent(this.$target, '@route', e.target.pathname);
+    dispatchCustomEvent(this.$target, '@route', e.target);
   }
 };
 
