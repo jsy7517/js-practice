@@ -13,6 +13,7 @@ module.exports = {
   rules: {
     'import/prefer-default-export': 'off',
     'implicit-arrow-linebreak': 'off',
+    'operator-linebreak': 'off',
     'import/no-unresolved': 'off',
     'import/extensions': 'off',
     'no-new': 'off',
