@@ -42,6 +42,7 @@ const App = class {
   }
 
   bindObservers() {
+    this.loginPage.bindObserver(this.authDomain, 'LOGIN');
     this.signupPage.bindObserver(this.authDomain, 'SIGNUP');
   }
 

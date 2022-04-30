@@ -36,6 +36,12 @@ const LoginPage = class extends PageElement {
 
   handleSubmitLoginForm(e) {
     e.preventDefault();
+    const [$emailInput, $passwordInput]: HTMLInputElement[] = e.target;
+    const [email, password] = [$emailInput.value, $passwordInput.value];
+    dispatchCustomEvent(this.$target, '@login', {
+      email,
+      password,
+    });
   }
 
   handleClickSignUpBtn(e) {
