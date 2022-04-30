@@ -28,25 +28,25 @@ module.exports = {
         test: /\.png$/,
         loader: 'file-loader',
       },
-      // {
-      //   test: /\.m?js$/,
-      //   exclude: /node_modules/,
-      //   use: {
-      //     loader: 'babel-loader',
-      //     options: {
-      //       presets: ['@babel/preset-env'],
-      //       plugins: [
-      //         [
-      //           '@babel/plugin-transform-runtime',
-      //           {
-      //             corejs: 3,
-      //             proposals: true,
-      //           },
-      //         ],
-      //       ],
-      //     },
-      //   },
-      // },
+      {
+        test: /\.m?js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: [
+              [
+                '@babel/plugin-transform-runtime',
+                {
+                  corejs: 3,
+                  proposals: true,
+                },
+              ],
+            ],
+          },
+        },
+      },
     ],
   },
   devServer: {
