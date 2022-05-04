@@ -1,3 +1,4 @@
+import { EventTypes } from '../../domain/types';
 import { $ } from '../../lib/utils/dom';
 
 const PageElement = class extends HTMLElement {
@@ -5,13 +6,13 @@ const PageElement = class extends HTMLElement {
 
   bindEvent() {}
 
-  bindObserver(domain, eventType) {
-    domain.observe({ eventType, target: this.$target });
+  bindObserver(domain, eventType: EventTypes, target = this.$target) {
+    domain.observe({ eventType, target });
   }
 
   render() {}
 
-  notify() {}
+  notify(data) {}
 };
 
 export default PageElement;

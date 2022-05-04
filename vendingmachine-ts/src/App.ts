@@ -2,7 +2,7 @@ import Auth from './domain/auth';
 import { getLocalStorage, setLocalStorage } from './lib/store/localStorage';
 import { $ } from './lib/utils/dom';
 import { bindCustomEvent } from './lib/utils/eventManager';
-import { route } from './lib/utils/router';
+import { Pathname, route } from './lib/utils/router';
 import HomePage from './ui/pages/HomePage';
 import LoginPage from './ui/pages/LoginPage';
 import SignupPage from './ui/pages/SignupPage';
@@ -32,7 +32,7 @@ const App = class {
   }
 
   loadLatestPage() {
-    const latestPage: string = getLocalStorage('latestPage') ?? null;
+    const latestPage: Pathname = getLocalStorage('latestPage') ?? null;
     if (window.location.pathname !== latestPage) {
       this.handleRoute({ pathname: '/' });
       return;
@@ -42,7 +42,7 @@ const App = class {
   }
 
   bindObservers() {
-    this.loginPage.bindObserver(this.authDomain, 'LOGIN');
+    this.loginPage.bindObserver(this.authDomain, 'LOGIN', this.homePage);
     this.signupPage.bindObserver(this.authDomain, 'SIGNUP');
   }
 
@@ -55,7 +55,8 @@ const App = class {
     this.renderPageByPathname(state ?? '/');
   }
 
-  renderPageByPathname(pathname) {
+  renderPageByPathname(pathname: Pathname) {
+    const isLoggedIn = getLocalStorage('accessToken') ?? false;
     switch (pathname) {
       case '/login':
         this.loginPage.render();
@@ -65,12 +66,13 @@ const App = class {
         break;
       case '/manage':
         this.homePage.render();
+        this.homePage.showManageMenu(isLoggedIn);
         break;
       case '/charge':
-        this.homePage.render();
+        // this.homePage.render();
         break;
       case '/purchase':
-        this.homePage.render();
+        // this.homePage.render();
         break;
       default:
         this.homePage.render();

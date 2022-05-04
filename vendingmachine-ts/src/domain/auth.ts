@@ -10,6 +10,7 @@ import {
   validateLoginResponse,
   validateSignupResponse,
 } from '../lib/validation/authValidation';
+import { setLocalStorage } from '../lib/store/localStorage';
 
 export interface LoginProps {
   email: string;
@@ -67,14 +68,15 @@ const Auth = class extends Domain {
       return;
     }
 
-    // TODO: Notify
     const { accessToken, user } = response;
     const { userName } = user;
+    setLocalStorage('accessToken', accessToken);
     dispatchCustomEvent(this.$target, '@route', { pathname: '/' });
-    showToast({
-      isError: false,
-      message: `${userName}님 환영합니다!`,
-    });
+    this.dispatch({ eventType: 'LOGIN', action: '', data: userName });
+    // showToast({
+    //   isError: false,
+    //   message: `${userName}님 환영합니다!`,
+    // });
   }
 
   async handleSignup({
@@ -85,6 +87,7 @@ const Auth = class extends Domain {
   }: SignupProps) {
     // TODO: Validate Signup Props
     // validateSignupFormData()
+
     const response = await AuthApi.signup({
       email,
       userName,
@@ -101,7 +104,6 @@ const Auth = class extends Domain {
       return;
     }
 
-    // TODO: Dispatch
     dispatchCustomEvent(this.$target, '@route', { pathname: '/login' });
     showToast({
       isError: false,

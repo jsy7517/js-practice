@@ -1,3 +1,5 @@
+import { EventTypes } from './types';
+
 const Domain = class {
   observers = [];
 
@@ -13,7 +15,7 @@ const Domain = class {
     this.subscribe(eventType);
   }
 
-  subscribe(eventType) {}
+  subscribe(eventType: EventTypes) {}
 };
 
 export default Domain;

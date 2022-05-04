@@ -1,6 +1,11 @@
 import Toast from '../../ui/common/Toast';
 
-export const showToast = ({ isError, message }) => {
+type ToastProps = {
+  isError: boolean;
+  message: string;
+};
+
+export const showToast = ({ isError, message }: ToastProps) => {
   const toast = new Toast();
   toast.renderToast(isError, message);
 };
