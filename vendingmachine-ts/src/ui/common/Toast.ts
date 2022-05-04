@@ -19,6 +19,7 @@ const Toast = class {
   `;
 
   renderToast(isError, message) {
+    // TODO: 이미 팝업된 경우 애니메이션 갱신
     this.$target.replaceChildren();
     this.$target.insertAdjacentHTML(
       'beforeend',
@@ -28,7 +29,6 @@ const Toast = class {
 
     setTimeout(() => {
       $('.toast').classList.toggle('show');
-      // this.$target.firstElementChild.remove();
     }, 3000);
   }
 

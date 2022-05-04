@@ -11,7 +11,7 @@ const LoginPage = class extends PageElement {
         <form id="login-form" class="form d-flex-col">
           <label class="form__label" for="email">이메일</label>
           <div class="wspace(5)"></div>
-          <input class="form__input" type="email" name="email" placeholder="example@gmail.com" required/>
+          <input class="form__input form__input--email" type="email" name="email" placeholder="example@gmail.com" required/>
           <div class="wspace(10)"></div>
           <label class="form__label" for="password">비밀번호</label>
           <div class="wspace(5)"></div>
@@ -33,6 +33,7 @@ const LoginPage = class extends PageElement {
       this.handleSubmitLoginForm(e),
     );
     $('#signup').addEventListener('click', (e) => this.handleClickSignUpBtn(e));
+    $('.form__input--email').focus();
   }
 
   handleSubmitLoginForm(e) {

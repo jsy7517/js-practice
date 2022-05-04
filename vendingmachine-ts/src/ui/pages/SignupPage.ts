@@ -11,7 +11,7 @@ const SignupPage = class extends PageElement {
         <form id="signup-form" class="form d-flex-col">
           <label class="form__label" for="email">이메일</label>
           <div class="wspace(5)"></div>
-          <input class="form__input" type="email" name="email" placeholder="example@gmail.com" required/>
+          <input class="form__input form__input--email" type="email" name="email" placeholder="example@gmail.com" required/>
           <div class="wspace(10)"></div>
           <label class="form__label" for="email">이름</label>
           <div class="wspace(5)"></div>
@@ -38,6 +38,7 @@ const SignupPage = class extends PageElement {
     $('#signup-form').addEventListener('submit', (e) =>
       this.handleSubmitSignupForm(e),
     );
+    $('.form__input--email').focus();
   }
 
   handleSubmitSignupForm(e) {
