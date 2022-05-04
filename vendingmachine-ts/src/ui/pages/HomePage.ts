@@ -21,6 +21,7 @@ const HomePage = class extends PageElement {
       <charge-tab></charge-tab>
       <purchase-tab></purchase-tab>
     </home-page>
+    <div id="toast-container"></div>
   `;
 
   render() {

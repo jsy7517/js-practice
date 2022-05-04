@@ -70,6 +70,11 @@ const Auth = class extends Domain {
     // TODO: Notify
     const { accessToken, user } = response;
     dispatchCustomEvent(this.$target, '@route', { pathname: '/' });
+    const { userName } = user;
+    showToast({
+      isError: false,
+      message: `${userName}님 환영합니다!`,
+    });
   }
 
   async handleSignup({
@@ -100,7 +105,7 @@ const Auth = class extends Domain {
     dispatchCustomEvent(this.$target, '@route', { pathname: '/login' });
     showToast({
       isError: false,
-      message: '회원가입에 성공했습니다!',
+      message: '회원가입이 완료되었습니다!',
     });
   }
 };
