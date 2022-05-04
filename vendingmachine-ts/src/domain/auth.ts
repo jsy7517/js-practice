@@ -69,8 +69,8 @@ const Auth = class extends Domain {
 
     // TODO: Notify
     const { accessToken, user } = response;
-    dispatchCustomEvent(this.$target, '@route', { pathname: '/' });
     const { userName } = user;
+    dispatchCustomEvent(this.$target, '@route', { pathname: '/' });
     showToast({
       isError: false,
       message: `${userName}님 환영합니다!`,

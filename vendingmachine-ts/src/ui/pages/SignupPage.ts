@@ -29,7 +29,6 @@ const SignupPage = class extends PageElement {
         </form>
       </div>
     </signup-page>
-    <div id="toast-container"></div>
   `;
 
   render() {
