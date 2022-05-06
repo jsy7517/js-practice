@@ -30,7 +30,7 @@ const ProductPurchaseModel = class {
 
 		if (targetProduct.quantity > 0) {
 			this.#chargeAmount -= price;
-			targetProduct.quantity -= 1;
+			targetProduct.quantity--;
 		}
 
 		setLocalStorage('chargeAmount', this.#chargeAmount);

@@ -24,7 +24,7 @@ const VendingMachineManageModel = class {
 			const randomCoin = MissionUtils.Random.pickNumberInList([10, 50, 100, 500]);
 			if (chargeAmount < randomCoin) continue;
 			chargeAmount -= randomCoin;
-			coins[`coin${randomCoin}`] += 1;
+			coins[`coin${randomCoin}`]++;
 		}
 
 		return coins;
