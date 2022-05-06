@@ -34,9 +34,9 @@ const ProductPurchaseView = class extends View {
 		this.updateChargeAmount(chargeAmount);
 		this.updateAvailableProductTable(productList);
 		this.updateCoinReturnTable(returnCoinsInfo);
-		$('#charge-input-form').addEventListener('submit', (e) => this.onInputCharge(e));
-		$('#available-product-table').addEventListener('click', (e) => this.onClickPurchaseButton(e));
-		$('#coin-return-button').addEventListener('click', () => this.onClickCoinReturnButton());
+		$('#charge-input-form').addEventListener('submit', (e) => this.handleChargeInput(e));
+		$('#available-product-table').addEventListener('click', (e) => this.handlePurchaseBtnClick(e));
+		$('#coin-return-button').addEventListener('click', () => this.handleCoinReturnBtnClick());
 	}
 
 	updateChargeAmount(chargeAmount) {
@@ -120,7 +120,7 @@ const ProductPurchaseView = class extends View {
     `;
 	}
 
-	onInputCharge(e) {
+	handleChargeInput(e) {
 		e.preventDefault();
 		const {
 			target: [_, chargeInput]
@@ -137,7 +137,7 @@ const ProductPurchaseView = class extends View {
 		this.emit($('#charge-input-form'), 'submitCharge', chargeAmount);
 	}
 
-	onClickPurchaseButton({ target }) {
+	handlePurchaseBtnClick({ target }) {
 		if (target.className === 'purchase-button') {
 			// NOTE: Element.closest()는 자신부터 부모 요소 단위로 출발하여 탐색한다.
 			const { productId } = target.closest('.product-purchase-item').dataset;
@@ -145,7 +145,7 @@ const ProductPurchaseView = class extends View {
 		}
 	}
 
-	onClickCoinReturnButton() {
+	handleCoinReturnBtnClick() {
 		this.emit($('#coin-return-button'), 'returnCoin');
 	}
 };

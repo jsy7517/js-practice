@@ -31,7 +31,7 @@ const ProductAddView = class extends View {
 		$('#current-menu').insertAdjacentHTML('afterbegin', ProductAddView.#template);
 		this.updateProductTable(productList);
 		this.$productAddForm = $('#product-add-form');
-		this.$productAddForm.addEventListener('submit', (e) => this.onInputNewProduct(e));
+		this.$productAddForm.addEventListener('submit', (e) => this.handleProductInput(e));
 	}
 
 	updateProductTable(productList) {
@@ -64,7 +64,7 @@ const ProductAddView = class extends View {
     `;
 	}
 
-	onInputNewProduct(e) {
+	handleProductInput(e) {
 		e.preventDefault();
 		const {
 			target: [_, productNameInput, productPriceInput, productQuantityInput]

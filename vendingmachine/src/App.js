@@ -28,12 +28,9 @@ const App = class {
 		this.vendingMachineManageController = new VendingMachineManageController();
 		this.productPurchaseController = new ProductPurchaseController();
 
-		this.bindMenuClickEvent();
-		this.loadLatestMenu();
-	}
-
-	bindMenuClickEvent() {
 		$('#vending-machine-menu').addEventListener('click', (e) => this.handleClickMenu(e));
+
+		this.loadLatestMenu();
 	}
 
 	handleClickMenu({ target: { id } }) {
