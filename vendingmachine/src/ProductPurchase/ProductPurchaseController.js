@@ -18,11 +18,6 @@ const ProductPurchaseController = class {
 			productList: this.model.productList,
 			returnCoinsInfo: this.model.returnCoinsInfo
 		});
-		this.bindEvents();
-	}
-
-	bindEvents() {
-		// NOTE: selector 정확하게 지정하기
 		this.view.on($('#charge-input-form'), 'submitCharge', (e) => this.handleSubmitCharge(e.detail));
 		this.view.on($('#available-product-table'), 'purchaseProduct', (e) => this.handlePurchaseProduct(e.detail));
 		this.view.on($('#coin-return-button'), 'returnCoin', () => this.handleReturnCoin());

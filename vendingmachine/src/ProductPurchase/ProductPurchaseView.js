@@ -34,7 +34,9 @@ const ProductPurchaseView = class extends View {
 		this.updateChargeAmount(chargeAmount);
 		this.updateAvailableProductTable(productList);
 		this.updateCoinReturnTable(returnCoinsInfo);
-		this.bindEvents();
+		$('#charge-input-form').addEventListener('submit', (e) => this.onInputCharge(e));
+		$('#available-product-table').addEventListener('click', (e) => this.onClickPurchaseButton(e));
+		$('#coin-return-button').addEventListener('click', () => this.onClickCoinReturnButton());
 	}
 
 	updateChargeAmount(chargeAmount) {
@@ -116,11 +118,6 @@ const ProductPurchaseView = class extends View {
         </tr>
       </tbody>
     `;
-	}
-	bindEvents() {
-		$('#charge-input-form').addEventListener('submit', (e) => this.onInputCharge(e));
-		$('#available-product-table').addEventListener('click', (e) => this.onClickPurchaseButton(e));
-		$('#coin-return-button').addEventListener('click', () => this.onClickCoinReturnButton());
 	}
 
 	onInputCharge(e) {

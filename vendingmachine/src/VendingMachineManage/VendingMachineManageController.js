@@ -14,10 +14,6 @@ const VendingMachineManageController = class {
 	renderVendingMachineManageMenu() {
 		this.model.updateChargeInfo();
 		this.view.render(this.model.chargeInfo);
-		this.bindEvent();
-	}
-
-	bindEvent() {
 		this.view.on($('#vending-machine-charge-form'), 'submitCharge', (e) => this.handleSubmitCharge(e.detail));
 	}
 

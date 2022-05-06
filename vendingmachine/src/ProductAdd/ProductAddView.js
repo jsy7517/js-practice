@@ -27,15 +27,11 @@ const ProductAddView = class extends View {
 		super();
 	}
 
-	// resetProductAddForm() {
-	// 	this.$productAddForm.reset();
-	// }
-
 	render(productList) {
 		$('#current-menu').insertAdjacentHTML('afterbegin', ProductAddView.#template);
 		this.updateProductTable(productList);
 		this.$productAddForm = $('#product-add-form');
-		this.bindInputNewProductEvent();
+		this.$productAddForm.addEventListener('submit', (e) => this.onInputNewProduct(e));
 	}
 
 	updateProductTable(productList) {
@@ -66,10 +62,6 @@ const ProductAddView = class extends View {
 				.join('')}
       </tbody>
     `;
-	}
-
-	bindInputNewProductEvent() {
-		this.$productAddForm.addEventListener('submit', (e) => this.onInputNewProduct(e));
 	}
 
 	onInputNewProduct(e) {

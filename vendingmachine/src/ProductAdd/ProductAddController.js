@@ -14,10 +14,6 @@ const ProductAddController = class {
 	renderProductAddMenu() {
 		this.model.updateProductList();
 		this.view.render(this.model.productList);
-		this.bindEvent();
-	}
-
-	bindEvent() {
 		this.view.on($('#product-add-form'), 'submitNewProduct', (e) => this.handleSubmitNewProduct(e.detail));
 	}
 

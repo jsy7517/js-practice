@@ -27,7 +27,7 @@ const VendingMachineManageView = class extends View {
 	render(chargeInfo) {
 		$('#current-menu').insertAdjacentHTML('afterbegin', VendingMachineManageView.#template);
 		this.updateChargeInfo(chargeInfo);
-		this.bindInputChargeEvent();
+		$('#vending-machine-charge-form').addEventListener('submit', (e) => this.onInputCharge(e));
 	}
 
 	updateChargeInfo(chargeInfo) {
@@ -66,10 +66,6 @@ const VendingMachineManageView = class extends View {
         </tr>
       </tbody>
     `;
-	}
-
-	bindInputChargeEvent() {
-		$('#vending-machine-charge-form').addEventListener('submit', (e) => this.onInputCharge(e));
 	}
 
 	onInputCharge(e) {
