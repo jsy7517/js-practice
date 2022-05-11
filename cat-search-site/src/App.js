@@ -14,6 +14,9 @@ class App {
 			$target,
 			onSearch: (keyword) => {
 				api.fetchCats(keyword).then(({ data }) => this.setState(data));
+			},
+			onShowRandomResult: () => {
+				api.fetchRandomCats().then(({ data }) => this.setState(data));
 			}
 		});
 

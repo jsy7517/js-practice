@@ -4,13 +4,12 @@
   font-weight: normal;
   font-style: normal;
 } */
-
 html {
   box-sizing: border-box;
 }
 
 body * {
-  font-family: Goyang;
+  /* font-family: Goyang; */
 }
 
 *,
@@ -45,8 +44,22 @@ body * {
   width: 100%;
 }
 
+.search-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.random-result-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
 .SearchInput {
-  width: 100%;
+  width: 80%;
   font-size: 40px;
   padding: 10px 15px;
 }

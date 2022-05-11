@@ -6,5 +6,8 @@ export const api = {
 	},
 	fetchCatDetail: (catID) => {
 		return fetch(`${API_ENDPOINT}/api/cats/${catID}`).then((res) => res.json());
+	},
+	fetchRandomCats: () => {
+		return fetch(`${API_ENDPOINT}/api/cats/random50`).then((res) => res.json());
 	}
 };

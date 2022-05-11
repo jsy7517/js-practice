@@ -1,24 +1,33 @@
+import { api } from './utils/api.js';
+import { $ } from './utils/dom.js';
+
 const SearchInput = class {
-	#template = '<input type="text">';
-	constructor({ $target, onSearch }) {
-		this.render($target, onSearch);
+	static #template = `
+		<div class="search-input-container">
+			<input class="SearchInput" type="text" placeholder="고양이를 검색해보세요.">
+			<div class="vspace(20)"></div>
+			<button class="random-result-btn">?</button>
+		</div>
+	`;
+	constructor({ $target, onSearch, onShowRandomResult }) {
+		this.render($target, onSearch, onShowRandomResult);
 		console.log('SearchInput created.', this);
 	}
 
-	render($target, onSearch) {
-		const $searchInput = document.createElement('input');
-		this.$searchInput = $searchInput;
-		this.$searchInput.placeholder = '고양이를 검색해보세요.';
-		$searchInput.className = 'SearchInput';
-		$target.appendChild($searchInput);
+	render($target, onSearch, onShowRandomResult) {
+		$target.insertAdjacentHTML('afterbegin', SearchInput.#template);
+		this.$searchInput = $('.SearchInput');
+		this.$randomResultBtn = $('.random-result-btn');
 
-		$searchInput.addEventListener('keyup', (e) => {
+		this.$searchInput.addEventListener('keyup', (e) => {
 			if (e.key === 'Enter') {
 				onSearch(e.target.value);
 			}
 		});
-		$searchInput.addEventListener('click', (e) => this.handleSearchInputClick(e));
-		$searchInput.focus();
+		this.$searchInput.addEventListener('click', (e) => this.handleSearchInputClick(e));
+		this.$randomResultBtn.addEventListener('click', () => onShowRandomResult());
+
+		this.$searchInput.focus();
 	}
 
 	handleSearchInputClick(e) {
