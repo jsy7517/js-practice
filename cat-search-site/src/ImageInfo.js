@@ -1,3 +1,4 @@
+import { api } from './utils/api.js';
 import { $ } from './utils/dom.js';
 
 const ImageInfo = class {
@@ -20,10 +21,12 @@ const ImageInfo = class {
 		this.render();
 	}
 
-	render() {
+	async render() {
 		if (this.data.visible) {
-			const { name, url, temperament, origin } = this.data.image;
-
+			const { id, name, url } = this.data.image;
+			const {
+				data: { temperament, origin }
+			} = await api.fetchCatDetail(id);
 			this.$imageInfo.innerHTML = `
         <article class="content-wrapper">
           <h1 class="title">
@@ -32,8 +35,8 @@ const ImageInfo = class {
           </h1>
           <img src="${url}" alt="${name}"/>        
           <section class="description">
-            <p>성격: ${temperament}</p>
-            <p>태생: ${origin}</p>
+            <p>성격 : ${temperament}</p>
+            <p>태생 : ${origin}</p>
           </section>
         </article>`;
 			this.$imageInfo.style.display = 'block';
