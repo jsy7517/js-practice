@@ -48,16 +48,15 @@ const ImageInfo = class {
 		$closeBtn.addEventListener('click', (e) => {
 			this.handleModalClose(e);
 		});
-		// window.addEventListener('click', (e) => {
-		//   this.handleModalClose(e);
-		// })
+		this.$imageInfo.addEventListener('click', (e) => {
+			this.handleModalClose(e);
+		});
 		window.addEventListener('keyup', (e) => {
 			this.handleModalClose(e);
 		});
 	}
 
 	handleModalClose(e) {
-		console.log(e.key);
 		if (e.target.className === 'close') {
 			this.closeModal();
 			return;
@@ -68,14 +67,13 @@ const ImageInfo = class {
 			return;
 		}
 
-		console.log(e.target.closest('.ImageInfo'));
-		// if (!e.target.closest(this.$imageInfo)) {
-		//   this.closeModal();
-		// }
+		if (!e.target.closest('.content-wrapper')) {
+			this.closeModal();
+		}
 	}
 
 	closeModal() {
-		if (this.data.viisble) {
+		if (this.data.visible) {
 			this.data.visible = !this.data.visible;
 			this.setState(this.data);
 		}
