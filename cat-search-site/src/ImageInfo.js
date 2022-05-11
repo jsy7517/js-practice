@@ -1,0 +1,85 @@
+import { $ } from './utils/dom.js';
+
+const ImageInfo = class {
+	$imageInfo = null;
+	data = null;
+
+	constructor({ $target, data }) {
+		const $imageInfo = document.createElement('div');
+		$imageInfo.className = 'ImageInfo';
+		this.$imageInfo = $imageInfo;
+		$target.appendChild($imageInfo);
+
+		this.data = data;
+
+		this.render();
+	}
+
+	setState(nextData) {
+		this.data = nextData;
+		this.render();
+	}
+
+	render() {
+		if (this.data.visible) {
+			const { name, url, temperament, origin } = this.data.image;
+
+			this.$imageInfo.innerHTML = `
+        <article class="content-wrapper">
+          <h1 class="title">
+            <span>${name}</span>
+            <div class="close">x</div>
+          </h1>
+          <img src="${url}" alt="${name}"/>        
+          <section class="description">
+            <p>성격: ${temperament}</p>
+            <p>태생: ${origin}</p>
+          </section>
+        </article>`;
+			this.$imageInfo.style.display = 'block';
+			this.bindEvent();
+		} else {
+			this.$imageInfo.style.display = 'none';
+		}
+	}
+
+	bindEvent() {
+		const $closeBtn = $('.close');
+		$closeBtn.addEventListener('click', (e) => {
+			this.handleModalClose(e);
+		});
+		// window.addEventListener('click', (e) => {
+		//   this.handleModalClose(e);
+		// })
+		window.addEventListener('keyup', (e) => {
+			this.handleModalClose(e);
+		});
+	}
+
+	handleModalClose(e) {
+		console.log(e.key);
+		if (e.target.className === 'close') {
+			this.closeModal();
+			return;
+		}
+
+		if (e.key === 'Escape') {
+			this.closeModal();
+			return;
+		}
+
+		console.log(e.target.closest('.ImageInfo'));
+		// if (!e.target.closest(this.$imageInfo)) {
+		//   this.closeModal();
+		// }
+	}
+
+	closeModal() {
+		if (this.data.viisble) {
+			this.data.visible = !this.data.visible;
+			this.setState(this.data);
+		}
+	}
+};
+
+export default ImageInfo;
