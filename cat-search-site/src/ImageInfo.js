@@ -27,11 +27,12 @@ const ImageInfo = class {
 			const {
 				data: { temperament, origin }
 			} = await api.fetchCatDetail(id);
+
 			this.$imageInfo.innerHTML = `
         <article class="content-wrapper">
           <h1 class="title">
             <span>${name}</span>
-            <div class="close">x</div>
+            <div class="close">&nbsp;</div>
           </h1>
           <img src="${url}" alt="${name}"/>        
           <section class="description">

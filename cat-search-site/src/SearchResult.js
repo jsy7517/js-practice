@@ -1,4 +1,7 @@
 class SearchResult {
+	#noResultTemplate = /* template */ `
+		<p class="no-search-result">검색 결과가 존재하지 않습니다. 다른 검색어로 검색해 보세요!</p>
+	`;
 	$searchResult = null;
 	data = null;
 	onClick = null;
@@ -20,22 +23,21 @@ class SearchResult {
 	}
 
 	render() {
-		this.$searchResult.innerHTML = this.data
-			.map(
-				(cat) => `
+		if (this.data.length) {
+			this.$searchResult.innerHTML = this.data
+				.map(
+					(cat) => `
           <article class="item" id=${cat.id}>
             <img src=${cat.url} alt=${cat.name} />
+						<div class="tooltip">${cat.name}</div>
           </article>
         `
-			)
-			.join('');
-
-		// this.$searchResult.querySelectorAll('.item').forEach(($item, index) => {
-		// 	$item.addEventListener('click', () => {
-		// 		this.onClick(this.data[index]);
-		// 	});
-		// });
-		this.$searchResult.addEventListener('click', (e) => this.handleSearchResultClick(e));
+				)
+				.join('');
+			this.$searchResult.addEventListener('click', (e) => this.handleSearchResultClick(e));
+		} else {
+			this.$searchResult.innerHTML = this.#noResultTemplate;
+		}
 	}
 
 	handleSearchResultClick(e) {

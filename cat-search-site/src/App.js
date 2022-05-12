@@ -2,10 +2,11 @@ import ImageInfo from './ImageInfo.js';
 import SearchInput from './SearchInput.js';
 import SearchResult from './SearchResult.js';
 import { api } from './utils/api.js';
+import { getLocalStorage, setLocalStorage } from './utils/localStorage.js';
 
 class App {
 	$target = null;
-	data = [];
+	data = getLocalStorage('lastSearchResult') ?? null;
 
 	constructor($target) {
 		this.$target = $target;
@@ -13,10 +14,16 @@ class App {
 		this.searchInput = new SearchInput({
 			$target,
 			onSearch: (keyword) => {
-				api.fetchCats(keyword).then(({ data }) => this.setState(data));
+				api.fetchCats(keyword).then(({ data }) => {
+					this.setState(data);
+					setLocalStorage('lastSearchResult', data);
+				});
 			},
 			onShowRandomResult: () => {
-				api.fetchRandomCats().then(({ data }) => this.setState(data));
+				api.fetchRandomCats().then(({ data }) => {
+					this.setState(data);
+					setLocalStorage('lastSearchResult', data);
+				});
 			}
 		});
 
