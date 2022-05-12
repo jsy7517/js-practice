@@ -2,6 +2,7 @@ import ImageInfo from './ImageInfo.js';
 import SearchInput from './SearchInput.js';
 import SearchResult from './SearchResult.js';
 import { api } from './utils/api.js';
+import { $ } from './utils/dom.js';
 import { getLocalStorage, setLocalStorage } from './utils/localStorage.js';
 
 class App {
@@ -10,6 +11,19 @@ class App {
 
 	constructor($target) {
 		this.$target = $target;
+		this.$target.insertAdjacentHTML(
+			'afterbegin',
+			/* template */ `
+			<input type="checkbox" class="theme-toggle"/>
+		`
+		);
+		$('.theme-toggle').addEventListener('click', (e) => {
+			if (e.target.checked) {
+				document.body.setAttribute('color-theme', 'dark');
+			} else {
+				document.body.setAttribute('color-theme', 'light');
+			}
+		});
 
 		this.searchInput = new SearchInput({
 			$target,
