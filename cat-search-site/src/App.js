@@ -4,6 +4,7 @@ import SearchResult from './SearchResult.js';
 import { api } from './utils/api.js';
 import { $ } from './utils/dom.js';
 import { getLocalStorage, setLocalStorage } from './utils/localStorage.js';
+import { OSColorTheme, userColorTheme } from './utils/theme.js';
 
 class App {
 	$target = null;
@@ -18,6 +19,7 @@ class App {
 		`
 		);
 		$('.theme-toggle').addEventListener('click', (e) => this.handleToggleTheme(e));
+		this.loadColorTheme();
 
 		this.searchInput = new SearchInput({
 			$target,
@@ -69,6 +71,17 @@ class App {
 			document.body.setAttribute('color-theme', 'light');
 			setLocalStorage('color-theme', 'light');
 		}
+	}
+
+	loadColorTheme() {
+		if (OSColorTheme === 'dark') {
+			$('.theme-toggle').checked = true;
+			setLocalStorage('color-theme', 'dark');
+			return;
+		}
+
+		$('.theme-toggle').checked = userColorTheme === 'dark' ? true : false;
+		setLocalStorage('color-theme', userColorTheme === 'dark' ? 'dark' : 'light');
 	}
 }
 
