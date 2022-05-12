@@ -17,13 +17,7 @@ class App {
 			<input type="checkbox" class="theme-toggle"/>
 		`
 		);
-		$('.theme-toggle').addEventListener('click', (e) => {
-			if (e.target.checked) {
-				document.body.setAttribute('color-theme', 'dark');
-			} else {
-				document.body.setAttribute('color-theme', 'light');
-			}
-		});
+		$('.theme-toggle').addEventListener('click', (e) => this.handleToggleTheme(e));
 
 		this.searchInput = new SearchInput({
 			$target,
@@ -65,6 +59,16 @@ class App {
 		console.log(this);
 		this.data = nextData;
 		this.searchResult.setState(nextData);
+	}
+
+	handleToggleTheme({ target: { checked } }) {
+		if (checked) {
+			document.body.setAttribute('color-theme', 'dark');
+			setLocalStorage('color-theme', 'dark');
+		} else {
+			document.body.setAttribute('color-theme', 'light');
+			setLocalStorage('color-theme', 'light');
+		}
 	}
 }
 
