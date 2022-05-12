@@ -67,8 +67,6 @@ body * {
   left: 105%;
 }
 
-
-
 .search-input-container {
   display: flex;
   align-items: center;
@@ -138,7 +136,7 @@ body * {
     grid-template-columns: repeat(2, minmax(250px, 1fr));
   }
 
-  .ImageInfo {
+  .ImageInfo .content-wrapper {
     width: 100%;
   }
 }

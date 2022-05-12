@@ -32,7 +32,7 @@ const ImageInfo = class {
         <article class="content-wrapper">
           <h1 class="title">
             <span>${name}</span>
-            <div class="close">&nbsp;</div>
+            <div class="close">x</div>
           </h1>
           <img src="${url}" alt="${name}"/>        
           <section class="description">
