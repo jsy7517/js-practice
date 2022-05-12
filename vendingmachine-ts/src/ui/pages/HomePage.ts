@@ -24,7 +24,6 @@ const HomePage = class extends PageElement {
         <div class="hspace(10)"></div>
         <a href="/purchase" class="btn pack">상품 구매</a>
       </nav>
-      <p></p>
       <manage-menu></manage-menu>
       <charge-menu></charge-menu>
       <purchase-menu></purchase-menu>
@@ -35,7 +34,7 @@ const HomePage = class extends PageElement {
   render() {
     this.$target.replaceChildren();
     this.$target.insertAdjacentHTML('afterbegin', HomePage.#template);
-    $('home-page').addEventListener('click', (e) => this.handleClickAnchor(e));
+    $('home-page').addEventListener('click', (e) => this.handleMenuClick(e));
   }
 
   showManageMenu(isLoggedIn: boolean) {
@@ -46,7 +45,7 @@ const HomePage = class extends PageElement {
 
   showPurchaseMenu() {}
 
-  handleClickAnchor(e) {
+  handleMenuClick(e) {
     if (!e.target.classList.contains('btn')) return;
     e.preventDefault();
     dispatchCustomEvent(this.$target, '@route', e.target);
