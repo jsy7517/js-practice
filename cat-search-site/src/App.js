@@ -80,7 +80,7 @@ class App {
 			return;
 		}
 
-		$('.theme-toggle').checked = userColorTheme === 'dark' ? true : false;
+		$('.theme-toggle').checked = userColorTheme === 'dark';
 		setLocalStorage('color-theme', userColorTheme === 'dark' ? 'dark' : 'light');
 	}
 }
