@@ -28,6 +28,7 @@ class App {
 					this.setState(data);
 					setLocalStorage('lastSearchResult', data);
 				});
+				this.handleUpdateRecentKeywords(keyword);
 			},
 			onShowRandomResult: () => {
 				api.fetchRandomCats().then(({ data }) => {
@@ -82,6 +83,10 @@ class App {
 
 		$('.theme-toggle').checked = userColorTheme === 'dark';
 		setLocalStorage('color-theme', userColorTheme === 'dark' ? 'dark' : 'light');
+	}
+
+	handleUpdateRecentKeywords(keyword) {
+		this.searchInput.updateRecentKeywords(keyword);
 	}
 }
 

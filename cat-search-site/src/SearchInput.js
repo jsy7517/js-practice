@@ -1,4 +1,4 @@
-import { api } from './utils/api.js';
+import { MAX_RECENT_KEYWORD_COUNT } from './utils/constants.js';
 import { $ } from './utils/dom.js';
 
 const SearchInput = class {
@@ -8,7 +8,11 @@ const SearchInput = class {
 			<div class="vspace(20)"></div>
 			<button class="random-result-btn">?</button>
 		</div>
+		<div class="recent-keywords-container"></div>
 	`;
+
+	#recentKeywords = [];
+
 	constructor({ $target, onSearch, onShowRandomResult }) {
 		this.render($target, onSearch, onShowRandomResult);
 		console.log('SearchInput created.', this);
@@ -28,6 +32,23 @@ const SearchInput = class {
 		this.$randomResultBtn.addEventListener('click', () => onShowRandomResult());
 
 		this.$searchInput.focus();
+	}
+
+	renderRecentKeywords() {
+		const $recentKeywordsContainer = $('.recent-keywords-container');
+		$recentKeywordsContainer.replaceChildren();
+		$recentKeywordsContainer.insertAdjacentHTML(
+			'afterbegin',
+			this.#recentKeywords.map((keyword) => `<p class="recent-keyword">${keyword}</p>`).join('')
+		);
+	}
+
+	updateRecentKeywords(keyword) {
+		this.#recentKeywords = [...this.#recentKeywords, keyword];
+		if (this.#recentKeywords.length > MAX_RECENT_KEYWORD_COUNT) {
+			this.#recentKeywords = this.#recentKeywords.slice(1, MAX_RECENT_KEYWORD_COUNT + 1);
+		}
+		this.renderRecentKeywords();
 	}
 
 	handleSearchInputClick(e) {

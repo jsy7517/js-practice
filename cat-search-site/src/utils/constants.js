@@ -1,0 +1,1 @@
+export const MAX_RECENT_KEYWORD_COUNT = 5;

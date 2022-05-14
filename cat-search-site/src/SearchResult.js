@@ -23,7 +23,7 @@ class SearchResult {
 	}
 
 	render() {
-		if (this.data.length) {
+		if (this.data?.length) {
 			this.$searchResult.innerHTML = this.data
 				.map(
 					(cat) => `
