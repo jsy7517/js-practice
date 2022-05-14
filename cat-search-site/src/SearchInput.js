@@ -39,15 +39,13 @@ const SearchInput = class {
 		$recentKeywordsContainer.replaceChildren();
 		$recentKeywordsContainer.insertAdjacentHTML(
 			'afterbegin',
-			this.#recentKeywords.map((keyword) => `<p class="recent-keyword">${keyword}</p>`).join('')
+			this.#recentKeywords.map((keyword) => `<div class="recent-keyword"><p>${keyword}</p></div>`).join('')
 		);
 	}
 
 	updateRecentKeywords(keyword) {
 		if (this.#recentKeywords.includes(keyword)) {
-			const result = [...this.#recentKeywords];
-			result.splice(result.indexOf(keyword), 1);
-			this.#recentKeywords = [...result, keyword];
+			this.#recentKeywords = [...this.#recentKeywords.filter((word) => word !== keyword), keyword];
 			this.renderRecentKeywords();
 			return;
 		}

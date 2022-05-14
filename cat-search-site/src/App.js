@@ -26,7 +26,9 @@ class App {
 			onSearch: (keyword) => {
 				api.fetchCats(keyword).then(({ data }) => {
 					this.setState(data);
-					setLocalStorage('lastSearchResult', data);
+					if (data) {
+						setLocalStorage('lastSearchResult', data);
+					}
 				});
 				this.handleUpdateRecentKeywords(keyword);
 			},
