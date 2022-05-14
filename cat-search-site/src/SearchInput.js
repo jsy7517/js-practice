@@ -44,7 +44,13 @@ const SearchInput = class {
 	}
 
 	updateRecentKeywords(keyword) {
-		if (this.#recentKeywords.includes(keyword)) return;
+		if (this.#recentKeywords.includes(keyword)) {
+			const result = [...this.#recentKeywords];
+			result.splice(result.indexOf(keyword), 1);
+			this.#recentKeywords = [...result, keyword];
+			this.renderRecentKeywords();
+			return;
+		}
 
 		this.#recentKeywords = [...this.#recentKeywords, keyword];
 		if (this.#recentKeywords.length > MAX_RECENT_KEYWORD_COUNT) {

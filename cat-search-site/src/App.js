@@ -8,7 +8,7 @@ import { OSColorTheme, userColorTheme } from './utils/theme.js';
 
 class App {
 	$target = null;
-	data = getLocalStorage('lastSearchResult') ?? null;
+	data = getLocalStorage('lastSearchResult');
 
 	constructor($target) {
 		this.$target = $target;
